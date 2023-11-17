@@ -1,7 +1,7 @@
 package kr.desponline.desp_backend.service;
 
 import java.util.List;
-import kr.desponline.desp_backend.dto.LevelRankDTO;
+import kr.desponline.desp_backend.dto.PlayerDTO;
 import kr.desponline.desp_backend.mongodb_repository.RPGSharpRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class RankingService {
         this.rpgSharpRepository = rpgSharpRepository;
     }
 
-    public List<LevelRankDTO> getTopPlayers(long limit) {
-        return rpgSharpRepository.findPlayerOrderByLevel().take(limit).collectList().block();
+    public List<PlayerDTO> readTopPlayers(long limit) {
+        return rpgSharpRepository.readPlayerOrderByLevel().take(limit).collectList().block();
     }
 }
