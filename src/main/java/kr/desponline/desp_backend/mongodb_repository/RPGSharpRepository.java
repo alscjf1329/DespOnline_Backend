@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface RPGSharpRepository extends ReactiveMongoRepository<PlayerDTO, String> {
-    @Query(fields = "{'uuid': 1, 'nickname': 1,'job': 1, 'level': 1, 'exp': 1 , 'maxExp': 1,'lastPlayTime': 1}", sort = "{ 'level' : -1, 'exp' : -1 }")
+    @Query(value = "{}", fields = "{'uuid': 1, 'nickname': 1,'job': 1, 'level': 1, 'exp': 1 , 'maxExp': 1,'lastPlayTime': 1}", sort = "{ 'level' : -1, 'exp' : -1 }")
     Flux<PlayerDTO> readPlayerOrderByLevel();
 
     @Query(value = "{ 'nickname' : ?0 }", fields = "{'uuid': 1, 'nickname': 1,'job': 1, 'level': 1, 'exp': 1 , 'maxExp': 1,'lastPlayTime': 1}")

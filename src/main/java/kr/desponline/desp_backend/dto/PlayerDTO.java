@@ -1,13 +1,11 @@
 package kr.desponline.desp_backend.dto;
 
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Document(collection = "RPGPlayer")
 public class PlayerDTO {
-    @Id
     private final String uuid;
     private final String nickname;
     private final String job;
