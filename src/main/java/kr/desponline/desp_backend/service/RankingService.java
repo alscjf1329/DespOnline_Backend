@@ -13,7 +13,7 @@ public class RankingService {
         this.rpgSharpRepository = rpgSharpRepository;
     }
 
-    public List<LevelRankDTO> getTopPlayers(long limit) {
-        return rpgSharpRepository.findPlayerOrderByLevel().take(limit).collectList().block();
+    public List<LevelRankDTO> readTopPlayers(long limit) {
+        return rpgSharpRepository.readPlayerOrderByLevel().take(limit).collectList().block();
     }
 }

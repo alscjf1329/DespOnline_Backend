@@ -17,6 +17,6 @@ public class RankingController {
 
     @GetMapping("/level")
     public List<LevelRankDTO> getTopPlayers() {
-        return rpgPlayerService.getTopPlayers(LIMIT);
+        return rpgPlayerService.readTopPlayers(LIMIT);
     }
 }

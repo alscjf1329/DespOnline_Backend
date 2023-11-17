@@ -13,14 +13,18 @@ public class LevelRankDTO {
     private final String nickname;
     private final String job;
     private final int level;
+    private final double exp;
+    private final double maxExp;
     private final double expPercent;
 
-    public LevelRankDTO(String id, String uuid, String nickname, String job, int level, double exp, double maxexp) {
+    public LevelRankDTO(String id, String uuid, String nickname, String job, int level, double exp, double maxExp) {
         this.id = id;
         this.uuid = uuid;
         this.nickname = nickname;
         this.job = job;
         this.level = level;
-        this.expPercent = exp / maxexp * 100;
+        this.exp = exp;
+        this.maxExp = maxExp;
+        this.expPercent = exp / maxExp * 100;
     }
 }
