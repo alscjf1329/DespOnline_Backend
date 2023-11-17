@@ -4,6 +4,7 @@ import kr.desponline.desp_backend.dto.PlayerVersusDTO;
 import kr.desponline.desp_backend.mongodb_repository.PlayerVersusRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -15,6 +16,8 @@ public class PlayerVersusService {
     }
 
     public List<PlayerVersusDTO> getTopScorePlayer(long limit) {
-        return playerVersusRepository.findPvpOrderByScore().take(limit).collectList().block();
+        List<PlayerVersusDTO> playerVersusDTOList = playerVersusRepository.findPvpOrderByScore().take(limit).collectList().block();
+        Collections.sort(playerVersusDTOList);
+        return playerVersusDTOList;
     }
 }
