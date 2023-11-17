@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface PlayerVersusRepository extends ReactiveMongoRepository<PlayerVersusDTO, String> {
 
-    @Query(value = "{}", sort = "{'record.score': -1}")
+    @Query(value = "{}", fields = "{'uuid': 1,'record': 1}", sort = "{'record.score': -1}")
     Flux<PlayerVersusDTO> findPvpOrderByScore();
 
     @Query(value = "{ 'uuid' : ?0 }", fields = "{'record': 1}")

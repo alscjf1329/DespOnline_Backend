@@ -21,6 +21,15 @@ public class PlayerVersusRecordDTO {
         this.tier = setTierByScore(score);
     }
 
+    public double calculateVictoryRate() {
+        int totalMatches = victory + defeat + draw;
+        return totalMatches > 0 ? (double) victory / totalMatches * 100 : 0;
+    }
+
+    public int calculateTotalMatches() {
+        return victory + defeat + draw;
+    }
+
     public String setWinRate(int victory, int defeat, int draw) {
         if (victory + defeat + draw == 0) {
             this.winRate = "0.0%";
