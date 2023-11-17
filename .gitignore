@@ -117,5 +117,5 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/java,macos
 
 *.bin
-~/IntelliJ-workspace/desponline_backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 *.lock
+./.gradle
