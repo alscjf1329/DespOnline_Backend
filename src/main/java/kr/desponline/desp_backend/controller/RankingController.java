@@ -1,6 +1,6 @@
 package kr.desponline.desp_backend.controller;
 
-import kr.desponline.desp_backend.dto.LevelRankDTO;
+import kr.desponline.desp_backend.dto.PlayerDTO;
 import kr.desponline.desp_backend.dto.PlayerVersusDTO;
 import kr.desponline.desp_backend.service.PlayerVersusService;
 import kr.desponline.desp_backend.service.RankingService;
@@ -27,7 +27,7 @@ public class RankingController {
     }
 
     @GetMapping("/level")
-    public List<LevelRankDTO> getTopPlayers() {
+    public List<PlayerDTO> getTopPlayers() {
         return rpgPlayerService.readTopPlayers(LIMIT);
     }
 }
