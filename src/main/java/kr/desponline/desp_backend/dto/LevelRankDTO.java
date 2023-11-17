@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "RPGPlayer")
 public class LevelRankDTO {
     @Id
-    private final String id;
     private final String uuid;
     private final String nickname;
     private final String job;
@@ -16,9 +15,10 @@ public class LevelRankDTO {
     private final double exp;
     private final double maxExp;
     private final double expPercent;
+    private final String lastPlayTime;
 
-    public LevelRankDTO(String id, String uuid, String nickname, String job, int level, double exp, double maxExp) {
-        this.id = id;
+    public LevelRankDTO(String uuid, String nickname, String job, int level, double exp, double maxExp,
+                        String lastPlayTime) {
         this.uuid = uuid;
         this.nickname = nickname;
         this.job = job;
@@ -26,5 +26,6 @@ public class LevelRankDTO {
         this.exp = exp;
         this.maxExp = maxExp;
         this.expPercent = exp / maxExp * 100;
+        this.lastPlayTime = lastPlayTime;
     }
 }
