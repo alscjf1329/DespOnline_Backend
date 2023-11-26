@@ -6,11 +6,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Document(collection = "PlayerVersus")
 public class PlayerVersusDTO implements Comparable<PlayerVersusDTO> {
-    private String uuid;
+    private String nickname;
     private PlayerVersusRecordDTO record;
 
-    public PlayerVersusDTO(String uuid, PlayerVersusRecordDTO record) {
-        this.uuid = uuid;
+    public PlayerVersusDTO(String nickname, PlayerVersusRecordDTO record) {
+        this.nickname = nickname;
         this.record = record;
     }
 
