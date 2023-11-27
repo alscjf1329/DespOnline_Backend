@@ -2,6 +2,7 @@ package kr.desponline.desp_backend.service;
 
 import kr.desponline.desp_backend.dto.PlayerDTO;
 import kr.desponline.desp_backend.dto.PlayerRecordDTO;
+import kr.desponline.desp_backend.dto.PlayerVersusDTO;
 import kr.desponline.desp_backend.dto.PlayerVersusRecordDTO;
 import kr.desponline.desp_backend.mongodb_repository.PlayerVersusRepository;
 import kr.desponline.desp_backend.mongodb_repository.RPGSharpRepository;
@@ -20,9 +21,10 @@ public class SearchService {
         if (player == null) {
             return null;
         }
-        PlayerVersusRecordDTO playerVersusRecord = playerVersusRepository.findPlayerVersusRecordByNickname(
-                player.getUuid()).block();
+        PlayerVersusDTO playerVersus = playerVersusRepository.findPvpByNickname(
+                nickname).block();
+        assert playerVersus != null;
 
-        return new PlayerRecordDTO(player, playerVersusRecord);
+        return new PlayerRecordDTO(player, playerVersus.getRecord());
     }
 }

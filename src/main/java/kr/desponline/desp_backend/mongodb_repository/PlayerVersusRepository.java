@@ -14,6 +14,6 @@ public interface PlayerVersusRepository extends ReactiveMongoRepository<PlayerVe
     @Query(value = "{}", fields = "{'nickname': 1,'record': 1}", sort = "{'record.score': -1}")
     Flux<PlayerVersusDTO> findPvpOrderByScore();
 
-    @Query(value = "{ 'uuid' : ?0 }", fields = "{'record': 1}")
-    Mono<PlayerVersusRecordDTO> findPlayerVersusRecordByNickname(String uuid);
+    @Query(value = "{ 'nickname' : ?0 }", fields = "{'nickname': 1,'record': 1}")
+    Mono<PlayerVersusDTO> findPvpByNickname(String nickname);
 }
