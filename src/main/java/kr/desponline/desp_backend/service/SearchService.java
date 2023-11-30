@@ -3,7 +3,6 @@ package kr.desponline.desp_backend.service;
 import kr.desponline.desp_backend.dto.PlayerDTO;
 import kr.desponline.desp_backend.dto.PlayerRecordDTO;
 import kr.desponline.desp_backend.dto.PlayerVersusDTO;
-import kr.desponline.desp_backend.dto.PlayerVersusRecordDTO;
 import kr.desponline.desp_backend.mongodb_repository.PlayerVersusRepository;
 import kr.desponline.desp_backend.mongodb_repository.RPGSharpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +25,13 @@ public class SearchService {
         assert playerVersus != null;
 
         return new PlayerRecordDTO(player, playerVersus.getRecord());
+    }
+
+    public String findUuidByNickname(String nickname) {
+        PlayerDTO player = rpgSharpRepository.findPlayerByNickname(nickname).block();
+        if (player == null) {
+            return null;
+        }
+        return player.getUuid();
     }
 }

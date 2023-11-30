@@ -21,5 +21,4 @@ public class CashChargeLogEntity {
     private int amount;
     private int charged_cash;
     private Date charge_at;
-
 }
