@@ -17,4 +17,8 @@ public class UserService {
     public UserEntity findUserEntityByUuid(String uuid) {
         return userRepository.findUserEntityByUuid(uuid);
     }
+
+    public void updateUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
+    }
 }

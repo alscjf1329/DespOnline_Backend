@@ -53,6 +53,15 @@ public class CashChargeController {
         return false;
     }
 
+    @PostMapping("/charge/{nickname}/{money}")
+    public void chargeCash(@PathVariable String nickname, @PathVariable String money) {
+        String uuid = searchService.findUuidByNickname(nickname);
+        UserEntity user = userService.findUserEntityByUuid(uuid);
+        int cash = Integer.parseInt(money);
+        user.setCash(user.getCash() + cash);
+        userService.updateUser(user);
+    }
+
     @PostMapping("/chargelog")
     public void createChargeLog(@RequestBody CashChargeLogDTO cashChargeLogDTO) {
         String nickname = cashChargeLogDTO.getNick_name();
