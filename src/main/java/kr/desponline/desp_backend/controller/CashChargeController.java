@@ -55,18 +55,20 @@ public class CashChargeController {
     }
 
     @PostMapping("/charge")
-    public void chargeCash(@RequestBody CashChargeDTO cashChargeDTO) {
+    public String chargeCash(@RequestBody CashChargeDTO cashChargeDTO) {
         String uuid = searchService.findUuidByNickname(cashChargeDTO.getNick_name());
         UserEntity user = userService.findUserEntityByUuid(uuid);
         int cash = Integer.parseInt(cashChargeDTO.getAmount());
         user.setCash(user.getCash() + cash);
         userService.updateUser(user);
+        return "충전이 완료됐어 예진아";
     }
 
     @PostMapping("/chargelog")
-    public void createChargeLog(@RequestBody CashChargeLogDTO cashChargeLogDTO) {
+    public String createChargeLog(@RequestBody CashChargeLogDTO cashChargeLogDTO) {
         String nickname = cashChargeLogDTO.getNick_name();
         String uuid = searchService.findUuidByNickname(nickname);
         cashChargeLogService.createCashChargeLog(cashChargeLogDTO, uuid);
+        return "충전이 로그가 찍혔어 예진아";
     }
 }
