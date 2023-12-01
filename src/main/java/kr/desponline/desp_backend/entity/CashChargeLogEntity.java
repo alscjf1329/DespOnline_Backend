@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -20,5 +20,5 @@ public class CashChargeLogEntity {
     private String user_uuid;
     private int amount;
     private int charged_cash;
-    private Date charge_at;
+    private LocalDateTime charge_at;
 }

@@ -6,6 +6,7 @@ import kr.desponline.desp_backend.mysql_repository.CashChargeLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,7 +30,7 @@ public class CashChargeLogService {
         cashChargeLogEntity.setUser_uuid(uuid);
         cashChargeLogEntity.setAmount(cash);
         cashChargeLogEntity.setCharged_cash(cash);
-        cashChargeLogEntity.setCharge_at(cashChargeLogDTO.getCharge_at());
+        cashChargeLogEntity.setCharge_at(LocalDateTime.now());
         cashChargeLogRepository.save(cashChargeLogEntity);
     }
 
