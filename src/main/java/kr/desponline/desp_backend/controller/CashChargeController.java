@@ -1,5 +1,6 @@
 package kr.desponline.desp_backend.controller;
 
+import kr.desponline.desp_backend.dto.CashChargeDTO;
 import kr.desponline.desp_backend.dto.CashChargeLogDTO;
 import kr.desponline.desp_backend.entity.CashChargeLogEntity;
 import kr.desponline.desp_backend.entity.UserEntity;
@@ -53,11 +54,11 @@ public class CashChargeController {
         return false;
     }
 
-    @PostMapping("/charge/{nickname}/{money}")
-    public void chargeCash(@PathVariable String nickname, @PathVariable String money) {
-        String uuid = searchService.findUuidByNickname(nickname);
+    @PostMapping("/charge")
+    public void chargeCash(@RequestBody CashChargeDTO cashChargeDTO) {
+        String uuid = searchService.findUuidByNickname(cashChargeDTO.getNick_name());
         UserEntity user = userService.findUserEntityByUuid(uuid);
-        int cash = Integer.parseInt(money);
+        int cash = Integer.parseInt(cashChargeDTO.getMoney());
         user.setCash(user.getCash() + cash);
         userService.updateUser(user);
     }
