@@ -8,6 +8,7 @@ import kr.desponline.desp_backend.service.CashChargeLogService;
 import kr.desponline.desp_backend.service.SearchService;
 import kr.desponline.desp_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,20 +56,20 @@ public class CashChargeController {
     }
 
     @PostMapping("/charge")
-    public String chargeCash(@RequestBody CashChargeDTO cashChargeDTO) {
+    public ResponseEntity<String> chargeCash(@RequestBody CashChargeDTO cashChargeDTO) {
         String uuid = searchService.findUuidByNickname(cashChargeDTO.getNick_name());
         UserEntity user = userService.findUserEntityByUuid(uuid);
         int cash = Integer.parseInt(cashChargeDTO.getAmount());
         user.setCash(user.getCash() + cash);
         userService.updateUser(user);
-        return "충전이 완료됐어 예진아";
+        return ResponseEntity.ok().body("충전이 완료되었습니다.");
     }
 
     @PostMapping("/chargelog")
-    public String createChargeLog(@RequestBody CashChargeLogDTO cashChargeLogDTO) {
+    public ResponseEntity<String> createChargeLog(@RequestBody CashChargeLogDTO cashChargeLogDTO) {
         String nickname = cashChargeLogDTO.getNick_name();
         String uuid = searchService.findUuidByNickname(nickname);
         cashChargeLogService.createCashChargeLog(cashChargeLogDTO, uuid);
-        return "충전이 로그가 찍혔어 예진아";
+        return ResponseEntity.ok().body("충전 내역이 저장되었습니다.");
     }
 }
