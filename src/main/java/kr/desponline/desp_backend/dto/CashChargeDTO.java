@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 public class CashChargeDTO {
     private String nick_name;
-    private String money;
+    private String amount;
 }
