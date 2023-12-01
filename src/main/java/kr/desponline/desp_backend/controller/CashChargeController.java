@@ -7,6 +7,8 @@ import kr.desponline.desp_backend.service.CashChargeLogService;
 import kr.desponline.desp_backend.service.SearchService;
 import kr.desponline.desp_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -28,24 +30,24 @@ public class CashChargeController {
     }
 
     @GetMapping("/existuser/{nickname}")
-    public boolean isExistUser(@PathVariable String nickname) {
+    public ResponseEntity isExistUser(@PathVariable String nickname) {
         String uuid = searchService.findUuidByNickname(nickname);
         if (uuid == null) {
-            return false;
+            return new ResponseEntity<>(false, HttpStatus.OK);
         }
         UserEntity user = userService.findUserEntityByUuid(uuid);
         if (user == NOT_EXIST_USER) {
-            return false;
+            return new ResponseEntity<>(false, HttpStatus.OK);
         }
-        return true;
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @GetMapping("/existcash/{money}")
-    public boolean isExistCash(@PathVariable String money) {
+    public ResponseEntity isExistCash(@PathVariable String money) {
         if (money.matches("\\d+")) {
-            return Integer.parseInt(money) < 100000;
+            return new ResponseEntity<>(Integer.parseInt(money) < 100000, HttpStatus.OK);
         }
-        return false;
+        return new ResponseEntity<>(false, HttpStatus.OK);
     }
 
     @PutMapping("/charge")
@@ -60,7 +62,7 @@ public class CashChargeController {
         user.setCash(legacyCash + cash);
         userService.updateUser(user);
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://desp-online.kr/");
+        redirectView.setUrl("redirect:/");
         return redirectView;
     }
 
