@@ -54,7 +54,7 @@ public class CashChargeController {
         return false;
     }
 
-    @PostMapping("/charge")
+    @PutMapping("/charge")
     public boolean chargeCash(@RequestBody CashChargeDTO cashChargeDTO) {
         String uuid = searchService.findUuidByNickname(cashChargeDTO.getNick_name());
         UserEntity user = userService.findUserEntityByUuid(uuid);
