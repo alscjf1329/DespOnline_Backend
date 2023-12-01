@@ -2,17 +2,16 @@ package kr.desponline.desp_backend.controller;
 
 import kr.desponline.desp_backend.dto.CashChargeDTO;
 import kr.desponline.desp_backend.dto.CashChargeLogDTO;
-import kr.desponline.desp_backend.entity.CashChargeLogEntity;
 import kr.desponline.desp_backend.entity.UserEntity;
 import kr.desponline.desp_backend.service.CashChargeLogService;
 import kr.desponline.desp_backend.service.SearchService;
 import kr.desponline.desp_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/cash")
 public class CashChargeController {
     private static final UserEntity NOT_EXIST_USER = null;
@@ -26,11 +25,6 @@ public class CashChargeController {
         this.cashChargeLogService = cashChargeLogService;
         this.userService = userService;
         this.searchService = searchService;
-    }
-
-    @GetMapping("/sightchargelog")
-    public List<CashChargeLogEntity> getAllCashChargeLogs() {
-        return cashChargeLogService.findAll();
     }
 
     @GetMapping("/existuser/{nickname}")
@@ -55,7 +49,7 @@ public class CashChargeController {
     }
 
     @PutMapping("/charge")
-    public boolean chargeCash(@RequestBody CashChargeDTO cashChargeDTO) {
+    public RedirectView chargeCash(@RequestBody CashChargeDTO cashChargeDTO) {
         String uuid = searchService.findUuidByNickname(cashChargeDTO.getNick_name());
         UserEntity user = userService.findUserEntityByUuid(uuid);
         int cash = Integer.parseInt(cashChargeDTO.getAmount());
@@ -65,7 +59,9 @@ public class CashChargeController {
         System.out.println("legacyCash + cash: " + (legacyCash + cash));
         user.setCash(legacyCash + cash);
         userService.updateUser(user);
-        return true;
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://desp-online.kr/");
+        return redirectView;
     }
 
     @PostMapping("/chargelog")
