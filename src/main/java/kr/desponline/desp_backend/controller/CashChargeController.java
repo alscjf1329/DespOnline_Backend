@@ -59,7 +59,11 @@ public class CashChargeController {
         String uuid = searchService.findUuidByNickname(cashChargeDTO.getNick_name());
         UserEntity user = userService.findUserEntityByUuid(uuid);
         int cash = Integer.parseInt(cashChargeDTO.getAmount());
-        user.setCash(user.getCash() + cash);
+        int legacyCash = user.getCash();
+        System.out.println("legacyCash: " + legacyCash);
+        System.out.println("cash: " + cash);
+        System.out.println("legacyCash + cash: " + (legacyCash + cash));
+        user.setCash(legacyCash + cash);
         userService.updateUser(user);
         return true;
     }
