@@ -47,7 +47,7 @@ public class PlayerVersusRecordDTO {
         } else if (score >= 60) {
             return "Diamond"; // 60점 이상
         } else if (score >= 45) {
-            return "platinum"; // 45점 이상
+            return "Platinum"; // 45점 이상
         } else if (score >= 30) {
             return "Gold"; // 30점 이상
         } else if (score >= 15) {
