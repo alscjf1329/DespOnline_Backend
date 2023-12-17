@@ -40,20 +40,22 @@ public class PlayerVersusRecordDTO {
     }
 
     public String setTierByScore(int score) {
-        if (score >= 0 && score <= 14) {
-            return "Bronze";
-        } else if (score >= 15 && score <= 29) {
-            return "Silver";
-        } else if (score >= 30 && score <= 44) {
-            return "Gold";
-        } else if (score >= 45 && score <= 59) {
-            return "Diamond";
-        } else if (score >= 60 && score <= 79) {
-            return "Master";
+        if (score >= 100) {
+            return "Gladiator"; // 100점 이상
         } else if (score >= 80) {
-            return "Gladiator";
+            return "Master"; // 80점 이상
+        } else if (score >= 60) {
+            return "Diamond"; // 60점 이상
+        } else if (score >= 45) {
+            return "platinum"; // 45점 이상
+        } else if (score >= 30) {
+            return "Gold"; // 30점 이상
+        } else if (score >= 15) {
+            return "Silver"; // 15점 이상
+        } else if (score >= 0) {
+            return "Bronze"; // 0점 이상
         } else {
-            return "Unknown";
+            return "Unknown"; // 음수 점수에 대한 처리
         }
     }
 }
