@@ -51,6 +51,7 @@ public class CashChargeController {
         String uuid = searchService.findUuidByNickname(cashChargeDTO.getNick_name());
         UserEntity user = userService.findUserEntityByUuid(uuid);
         int cash = Integer.parseInt(cashChargeDTO.getAmount());
+        cash = (int) (cash * 0.2) + cash;
         user.setCash(user.getCash() + cash);
         userService.updateUser(user);
         return true;
