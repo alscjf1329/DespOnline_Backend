@@ -8,7 +8,6 @@ import kr.desponline.desp_backend.dto.AccessCredentialDTO;
 import kr.desponline.desp_backend.dto.CertificationResultDTO;
 import kr.desponline.desp_backend.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/authenticate")
-public class TokenController {
+public class AuthController {
 
-    @Value("${desp-online.session-key.cookie-name}")
-    private String sessionKeyOptionName;
+    public static final String SESSION_KEY_COOKIE_NAME = "desp-online-key";
     private final TokenService tokenService;
 
     @Autowired
-    public TokenController(TokenService tokenService) {
+    public AuthController(TokenService tokenService) {
         this.tokenService = tokenService;
     }
 
@@ -43,9 +41,9 @@ public class TokenController {
         }
 
         String sessionToken = UUID.randomUUID().toString();
-        session.setAttribute(sessionKeyOptionName, sessionToken);
+        session.setAttribute(sessionToken, accessCredentialDTO.getNickname());
 
-        Cookie cookie = new Cookie("sessionKey", sessionToken);
+        Cookie cookie = new Cookie(SESSION_KEY_COOKIE_NAME, sessionToken);
         cookie.setHttpOnly(true); // XSS 공격 방지
         cookie.setSecure(true); // HTTPS를 통해서만 쿠키 전송
         cookie.setMaxAge(3600);
