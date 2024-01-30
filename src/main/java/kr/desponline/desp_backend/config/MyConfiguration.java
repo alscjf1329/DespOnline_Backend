@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend;
+package kr.desponline.desp_backend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
