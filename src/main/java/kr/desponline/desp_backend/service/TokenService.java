@@ -41,6 +41,7 @@ public class TokenService {
                 int remainingAttempts = jsonNode.get("remainingAttempts").asInt();
                 return new CertificationResultDTO(remainingAttempts, isValid);
             })
+            .onErrorReturn(new CertificationResultDTO(0, false)) // 에러 발생 시 false 반환
             .block();
     }
 }
