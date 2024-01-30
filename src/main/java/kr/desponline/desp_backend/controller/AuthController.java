@@ -36,7 +36,8 @@ public class AuthController {
         );
 
         if (!certificationResult.isValid()) {
-            return certificationResult;
+            return new CertificationResultDTO(
+                certificationResult.getRemainingAttempts(), false);
         }
 
         String sessionToken = UUID.randomUUID().toString();
@@ -48,6 +49,7 @@ public class AuthController {
         cookie.setMaxAge(3600);
 
         response.addCookie(cookie);
-        return certificationResult;
+        return new CertificationResultDTO(
+            certificationResult.getRemainingAttempts(), certificationResult.isValid());
     }
 }
