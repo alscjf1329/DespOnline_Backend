@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/game")
 public class GameController {
 
-    @Value("frontend.login-page-url")
+    @Value("${frontend.login-page-url}")
     private String loginEndpoint;
 
     @PostMapping("/main")
