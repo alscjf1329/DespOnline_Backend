@@ -10,10 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SearchService {
-    @Autowired
-    private RPGSharpRepository rpgSharpRepository;
-    @Autowired
-    private PlayerVersusRepository playerVersusRepository;
+    private final RPGSharpRepository rpgSharpRepository;
+    private final PlayerVersusRepository playerVersusRepository;
+
+    public SearchService(RPGSharpRepository rpgSharpRepository,
+        PlayerVersusRepository playerVersusRepository) {
+        this.rpgSharpRepository = rpgSharpRepository;
+        this.playerVersusRepository = playerVersusRepository;
+    }
 
     public PlayerRecordDTO findRecordByNickname(String nickname) {
         PlayerDTO player = rpgSharpRepository.findPlayerByNickname(nickname).block();
