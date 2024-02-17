@@ -4,9 +4,11 @@ package kr.desponline.desp_backend.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.netty.channel.ChannelOption;
+import jakarta.servlet.http.HttpSession;
 import java.time.Duration;
 import kr.desponline.desp_backend.dto.AccessCredentialDTO;
 import kr.desponline.desp_backend.dto.CertificationResultDTO;
+import kr.desponline.desp_backend.dto.GameInfoDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class TokenService {
 
     @Value("${minecraft.public-api.authenticate-token-url}")
     private String url;
+    @Value("${root.sessionKey}")
+    private String rootKey;
 
     public CertificationResultDTO authenticate(String nickname, String authenticationCode) {
         // TcpClient를 사용하여 타임아웃 설정
@@ -43,5 +47,12 @@ public class TokenService {
             })
             .onErrorReturn(new CertificationResultDTO(0, false)) // 에러 발생 시 false 반환
             .block();
+    }
+
+    public boolean isNotValid(HttpSession session, String sessionKey){
+        if(sessionKey.equals(rootKey)){
+            return false;
+        }
+        return sessionKey.isEmpty() || session.getAttribute(sessionKey) == null;
     }
 }
