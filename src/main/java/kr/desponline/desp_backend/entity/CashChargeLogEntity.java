@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @Entity
 @Getter
 @Setter
+@Qualifier(value = "despdbEntityManagerFactory")
 @Table(name = "cash_charge_log")
 public class CashChargeLogEntity {
 

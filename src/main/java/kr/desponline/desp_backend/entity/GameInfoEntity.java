@@ -7,11 +7,13 @@ import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Getter
 @Setter
+@Qualifier(value = "webgamedbDataSource")
 @Table(name = "webgame")
 public class GameInfoEntity {
 
