@@ -1,17 +1,16 @@
 package kr.desponline.desp_backend.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import kr.desponline.desp_backend.dto.CashChargeLogDTO;
-import kr.desponline.desp_backend.entity.CashChargeLogEntity;
-import kr.desponline.desp_backend.mysql_repository.CashChargeLogRepository;
+import kr.desponline.desp_backend.entity.despdb.CashChargeLogEntity;
+import kr.desponline.desp_backend.mysql_repository.despdb.CashChargeLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Service
 public class CashChargeLogService {
-    CashChargeLogRepository cashChargeLogRepository;
+    private final CashChargeLogRepository cashChargeLogRepository;
 
     @Autowired
     public CashChargeLogService(CashChargeLogRepository cashChargeLogRepository) {

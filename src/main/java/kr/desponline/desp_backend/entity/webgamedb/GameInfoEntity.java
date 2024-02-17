@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.entity;
+package kr.desponline.desp_backend.entity.webgamedb;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

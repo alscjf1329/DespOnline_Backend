@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.entity;
+package kr.desponline.desp_backend.entity.despdb;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 @Entity
 @Getter
 @Setter
-@Qualifier(value = "despdbEntityManagerFactory")
+@Qualifier(value = "entityManagerFactory")
 @Table(name = "cash_charge_log")
 public class CashChargeLogEntity {
 

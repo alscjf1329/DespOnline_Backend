@@ -2,7 +2,7 @@ package kr.desponline.desp_backend.controller;
 
 import kr.desponline.desp_backend.dto.CashChargeDTO;
 import kr.desponline.desp_backend.dto.CashChargeLogDTO;
-import kr.desponline.desp_backend.entity.UserEntity;
+import kr.desponline.desp_backend.entity.despdb.UserEntity;
 import kr.desponline.desp_backend.service.CashChargeLogService;
 import kr.desponline.desp_backend.service.SearchService;
 import kr.desponline.desp_backend.service.UserService;

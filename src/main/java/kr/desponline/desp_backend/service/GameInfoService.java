@@ -1,8 +1,8 @@
 package kr.desponline.desp_backend.service;
 
-import kr.desponline.desp_backend.entity.GameInfoEntity;
-import kr.desponline.desp_backend.entity.GameInfoEntity.ProcessedGameInfoEntity;
-import kr.desponline.desp_backend.mysql_repository.GameInfoRepository;
+import kr.desponline.desp_backend.entity.webgamedb.GameInfoEntity;
+import kr.desponline.desp_backend.entity.webgamedb.GameInfoEntity.ProcessedGameInfoEntity;
+import kr.desponline.desp_backend.mysql_repository.webgamedb.GameInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,6 @@ public class GameInfoService {
     @Value("${webgame.reward.default-count.c}")
     private int rewardC;
 
-    @Qualifier(value = "webgamedbDataSource")
     GameInfoRepository gameInfoRepository;
 
     @Autowired
