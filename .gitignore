@@ -7,9 +7,6 @@
 node_modules/
 dist/
 
-#properties
-*.properties
-
 # Compiled Java class files
 *.class
 
@@ -18,9 +15,6 @@ dist/
 
 # Log files
 *.log
-
-# Package files
-*.jar
 
 # Maven
 target/
@@ -69,8 +63,6 @@ Thumbs.db
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
 *.nar
 *.ear
 *.zip
@@ -118,8 +110,8 @@ Temporary Items
 
 *.bin
 *.lock
-./.gradle
-
-./build
+.gradle
+build
+src/main/resources/*.properties
 
 *.probe
