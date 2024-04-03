@@ -1,14 +1,11 @@
 package kr.desponline.desp_backend.service;
 
-// ... 기타 임포트 ...
-
 import com.fasterxml.jackson.databind.JsonNode;
 import io.netty.channel.ChannelOption;
 import jakarta.servlet.http.HttpSession;
 import java.time.Duration;
 import kr.desponline.desp_backend.dto.AccessCredentialDTO;
 import kr.desponline.desp_backend.dto.CertificationResultDTO;
-import kr.desponline.desp_backend.dto.GameInfoDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
@@ -49,8 +46,8 @@ public class TokenService {
             .block();
     }
 
-    public boolean isNotValid(HttpSession session, String sessionKey){
-        if(sessionKey.equals(rootKey)){
+    public boolean isNotValid(HttpSession session, String sessionKey) {
+        if (sessionKey.equals(rootKey)) {
             return false;
         }
         return sessionKey.isEmpty() || session.getAttribute(sessionKey) == null;
