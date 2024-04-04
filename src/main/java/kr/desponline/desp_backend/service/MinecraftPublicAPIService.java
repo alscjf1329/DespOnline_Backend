@@ -40,7 +40,6 @@ public class MinecraftPublicAPIService {
             if (response.statusCode().equals(HttpStatus.OK)) {
                 return response.bodyToFlux(UuidResponseDTO.class);
             } else {
-                System.out.println("-------------------------");
                 return null;
             }
         }).blockFirst();
