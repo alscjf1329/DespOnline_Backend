@@ -9,7 +9,8 @@ import kr.desponline.desp_backend.dto.CertificationResultDTO;
 import kr.desponline.desp_backend.dto.SignupRequestDTO;
 import kr.desponline.desp_backend.exception.ErrorCode;
 import kr.desponline.desp_backend.exception.customs.SignupException;
-import kr.desponline.desp_backend.service.SearchService;
+import kr.desponline.desp_backend.service.GameUserService;
+import kr.desponline.desp_backend.service.SignUpValidateService;
 import kr.desponline.desp_backend.service.TokenService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,29 +27,38 @@ public class SignupController {
 
     public static final String SESSION_KEY_COOKIE_NAME = "desp_access_token";
     private final TokenService tokenService;
-    private final SearchService searchService;
+    private final GameUserService gameUserService;
+    private final SignUpValidateService signUpValidateService;
 
     @Autowired
-    public SignupController(TokenService tokenService, SearchService searchService) {
+    public SignupController(TokenService tokenService,
+        GameUserService gameUserService,
+        SignUpValidateService signUpValidateService) {
         this.tokenService = tokenService;
-        this.searchService = searchService;
+        this.gameUserService = gameUserService;
+        this.signUpValidateService = signUpValidateService;
     }
 
     @PostMapping("")
     public CertificationResultDTO signup(
         @RequestBody SignupRequestDTO signupDTO, HttpSession session,
-        @CookieValue(SESSION_KEY_COOKIE_NAME) String sessionKeyCookieValue,
-        HttpServletResponse response) {
+        @CookieValue(SESSION_KEY_COOKIE_NAME) String sessionKeyCookieValue) {
         UserInfo userInfo = (UserInfo) session.getAttribute(sessionKeyCookieValue);
         if (userInfo == null) {
             throw new SignupException("You are an unauthenticated server user.",
                 ErrorCode.UNAUTHENTICATED_SERVER_USER);
         }
-        /* TODO
-         * 회원 가입 대상이 중복되는지 체크
-         * id, pw가 형식에 맞는지 체크
-         * */
 
+        if (gameUserService.existsByUuid(userInfo.getUuid())) {
+            throw new SignupException("You already have an account.",
+                ErrorCode.DUPLICATE_REGISTRATION);
+        }
+
+        if (!signUpValidateService.validate(signupDTO.getId(), signupDTO.getPw())) {
+            throw new SignupException("Invalid format for ID or password.",
+                ErrorCode.INVALID_FORMAT_FOR_ID_OR_PASSWORD);
+        }
+        //TODO DB에 회원 가입 정보 추가
         return null;
     }
 
