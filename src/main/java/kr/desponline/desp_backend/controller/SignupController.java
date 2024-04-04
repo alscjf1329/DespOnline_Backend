@@ -45,7 +45,7 @@ public class SignupController {
     }
 
     @PostMapping("")
-    public CertificationResultDTO signup(
+    public boolean signup(
         @RequestBody SignupRequestDTO signupDTO, HttpSession session,
         @CookieValue(SESSION_KEY_COOKIE_NAME) String sessionKeyCookieValue) {
         UserInfo userInfo = (UserInfo) session.getAttribute(sessionKeyCookieValue);
@@ -69,7 +69,7 @@ public class SignupController {
             userInfo.getUuid(), signupDTO.getId(), encodedPassword);
 
         gameUserService.save(gameUserEntity);
-        return null;
+        return true;
     }
 
     @PostMapping("/confirm")
