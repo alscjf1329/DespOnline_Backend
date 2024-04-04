@@ -1,5 +1,6 @@
 package kr.desponline.desp_backend.service;
 
+import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.mysql_repository.webgamedb.GameUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,9 @@ public class GameUserService {
 
     public boolean existsByUuid(String uuid) {
         return this.gameUserRepository.existsByUuid(uuid);
+    }
+
+    public void save(GameUserEntity gameUserEntity) {
+        this.gameUserRepository.save(gameUserEntity);
     }
 }

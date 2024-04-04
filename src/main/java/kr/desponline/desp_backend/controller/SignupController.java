@@ -7,8 +7,10 @@ import java.util.UUID;
 import kr.desponline.desp_backend.dto.AccessCredentialDTO;
 import kr.desponline.desp_backend.dto.CertificationResultDTO;
 import kr.desponline.desp_backend.dto.SignupRequestDTO;
+import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.exception.ErrorCode;
 import kr.desponline.desp_backend.exception.customs.SignupException;
+import kr.desponline.desp_backend.service.EncodingService;
 import kr.desponline.desp_backend.service.GameUserService;
 import kr.desponline.desp_backend.service.SignUpValidateService;
 import kr.desponline.desp_backend.service.TokenService;
@@ -29,14 +31,17 @@ public class SignupController {
     private final TokenService tokenService;
     private final GameUserService gameUserService;
     private final SignUpValidateService signUpValidateService;
+    private final EncodingService encodingService;
 
     @Autowired
     public SignupController(TokenService tokenService,
         GameUserService gameUserService,
-        SignUpValidateService signUpValidateService) {
+        SignUpValidateService signUpValidateService,
+        EncodingService encodingService) {
         this.tokenService = tokenService;
         this.gameUserService = gameUserService;
         this.signUpValidateService = signUpValidateService;
+        this.encodingService = encodingService;
     }
 
     @PostMapping("")
@@ -58,7 +63,12 @@ public class SignupController {
             throw new SignupException("Invalid format for ID or password.",
                 ErrorCode.INVALID_FORMAT_FOR_ID_OR_PASSWORD);
         }
-        //TODO DB에 회원 가입 정보 추가
+        String encodedPassword = encodingService.encode(signupDTO.getPw());
+
+        GameUserEntity gameUserEntity = GameUserEntity.createUser(
+            userInfo.getUuid(), signupDTO.getId(), encodedPassword);
+
+        gameUserService.save(gameUserEntity);
         return null;
     }
 
