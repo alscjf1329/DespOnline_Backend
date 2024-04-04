@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class CertificationResultDTO {
-
+    private final String uuid;
     private final int remainingAttempts;
     private final boolean isValid;
 }

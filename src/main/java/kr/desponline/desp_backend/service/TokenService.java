@@ -38,11 +38,12 @@ public class TokenService {
             .retrieve()
             .bodyToMono(JsonNode.class)
             .map(jsonNode -> {
+                String uuid = jsonNode.get("uuid").asText();
                 boolean isValid = jsonNode.get("isValid").asBoolean();
                 int remainingAttempts = jsonNode.get("remainingAttempts").asInt();
-                return new CertificationResultDTO(remainingAttempts, isValid);
+                return new CertificationResultDTO(uuid, remainingAttempts, isValid);
             })
-            .onErrorReturn(new CertificationResultDTO(0, false)) // 에러 발생 시 false 반환
+            .onErrorReturn(new CertificationResultDTO(null, 0, false)) // 에러 발생 시 false 반환
             .block();
     }
 
