@@ -78,3 +78,5 @@ jobs:
             echo "#### RUN $SOURCE_DIR/$FILE_NAME ####"
             
             java -jar $SOURCE_DIR/$FILE_NAME
+            
+            screen -R test-was -X stuff $'\001\004'
