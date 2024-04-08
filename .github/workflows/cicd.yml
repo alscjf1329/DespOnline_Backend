@@ -66,7 +66,7 @@ jobs:
             SOURCE_DIR=source/build/libs
             FILE_NAME=`find $SOURCE_DIR/*.jar -printf "%f\n"`
             PID=`ps -ef | grep desp_backend | grep -v "bash -c" | awk '{print $2}'`
-            LOG_FILE=~/source/build/logfile_$(date +"%Y%m%d_%H%M%S").log
+            LOG_FILE=source/build/logfile_$(date +"%Y%m%d_%H%M%S").log
 
             if [ -z "$PID" ]; then
                     echo "#### THERE IS NO PROCESS ####"
