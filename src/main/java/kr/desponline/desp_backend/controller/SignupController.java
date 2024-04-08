@@ -47,8 +47,14 @@ public class SignupController {
     @PostMapping("")
     public boolean signup(
         @RequestBody SignupRequestDTO signupDTO, HttpSession session,
-        @CookieValue(SESSION_KEY_COOKIE_NAME) String sessionKeyCookieValue) {
-        UserInfo userInfo = (UserInfo) session.getAttribute(sessionKeyCookieValue);
+        @CookieValue(value = SESSION_KEY_COOKIE_NAME, required = false) Cookie sessionKeyCookie) {
+        if (sessionKeyCookie == null) {
+            throw new SignupException("You are an unauthenticated server user.",
+                ErrorCode.UNAUTHENTICATED_SERVER_USER);
+        }
+        String sessionKey = sessionKeyCookie.getValue();
+        UserInfo userInfo = (UserInfo) session.getAttribute(sessionKey);
+
         if (userInfo == null) {
             throw new SignupException("You are an unauthenticated server user.",
                 ErrorCode.UNAUTHENTICATED_SERVER_USER);
