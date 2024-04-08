@@ -102,6 +102,7 @@ public class SignupController {
         Cookie cookie = new Cookie(SESSION_KEY_COOKIE_NAME, sessionToken);
         cookie.setHttpOnly(true); // XSS 공격 방지
         cookie.setSecure(true); // HTTPS를 통해서만 쿠키 전송
+        cookie.setPath("/signup");
         cookie.setMaxAge(180);
 
         response.addCookie(cookie);
