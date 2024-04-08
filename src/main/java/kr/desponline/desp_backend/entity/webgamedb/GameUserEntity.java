@@ -25,8 +25,8 @@ public class GameUserEntity {
     private String encoded_password;
     private Integer role;
     private Integer state;
-    private LocalDateTime createdTime;
-    private LocalDateTime last_longin_time;
+    private LocalDateTime created_at;
+    private LocalDateTime last_login_at;
 
     public static GameUserEntity createUser(String uuid, String id, String encodedPassword) {
         return new GameUserEntity(uuid, id, encodedPassword, 2, 1,
