@@ -78,4 +78,4 @@ jobs:
 
             echo "#### RUN $SOURCE_DIR/$FILE_NAME ####"
             
-            java -jar $SOURCE_DIR/$FILE_NAME > "$LOG_FILE" 2>&1 &
+            java -jar $SOURCE_DIR/$FILE_NAME > $LOG_FILE 2>&1 &
