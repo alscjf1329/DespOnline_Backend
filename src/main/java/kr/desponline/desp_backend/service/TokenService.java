@@ -17,8 +17,6 @@ public class TokenService {
 
     @Value("${minecraft.public-api.authenticate-token-url}")
     private String url;
-    @Value("${root.sessionKey}")
-    private String rootKey;
 
     public CertificationResultDTO authenticate(String nickname, String authenticationCode) {
         // TcpClient를 사용하여 타임아웃 설정
@@ -45,12 +43,5 @@ public class TokenService {
             })
             .onErrorReturn(new CertificationResultDTO(null, 0, false)) // 에러 발생 시 false 반환
             .block();
-    }
-
-    public boolean isNotValid(HttpSession session, String sessionKey) {
-        if (sessionKey.equals(rootKey)) {
-            return false;
-        }
-        return sessionKey.isEmpty() || session.getAttribute(sessionKey) == null;
     }
 }
