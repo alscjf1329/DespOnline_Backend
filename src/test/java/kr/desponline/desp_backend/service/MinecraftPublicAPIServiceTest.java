@@ -3,7 +3,7 @@ package kr.desponline.desp_backend.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import kr.desponline.desp_backend.dto.UuidResponseDTO;
+import kr.desponline.desp_backend.dto.BasicUserInfoDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,10 +35,28 @@ public class MinecraftPublicAPIServiceTest {
           }
           **/
         // When
-        UuidResponseDTO uuidResponseDTO = minecraftService.getUuidByNickname("KrisJelbring");
+        BasicUserInfoDTO basicUserInfoDTO = minecraftService.getUuidByNickname("KrisJelbring");
 
-        assertThat(uuidResponseDTO).isNotNull();
-        assertThat(uuidResponseDTO.getId()).isEqualTo("7125ba8b1c864508b92bb5c042ccfe2b");
+        assertThat(basicUserInfoDTO).isNotNull();
+        assertThat(basicUserInfoDTO.getUuid()).isEqualTo("7125ba8b1c864508b92bb5c042ccfe2b");
+    }
+
+    @Test
+    public void testGetNicknameByUuid() {
+        // Given
+        MinecraftPublicAPIService minecraftService = new MinecraftPublicAPIService();
+
+        /* public example
+          {
+            "id" : "7125ba8b1c864508b92bb5c042ccfe2b",
+            "name" : "KrisJelbring"
+          }
+          **/
+        // When
+        BasicUserInfoDTO basicUserInfoDTO = minecraftService.getNicknameByUuid("7125ba8b1c864508b92bb5c042ccfe2b");
+
+        assertThat(basicUserInfoDTO).isNotNull();
+        assertThat(basicUserInfoDTO.getNickname()).isEqualTo("KrisJelbring");
     }
 }
 
