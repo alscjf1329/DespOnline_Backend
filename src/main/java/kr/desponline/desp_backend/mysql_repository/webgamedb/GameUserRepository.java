@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface GameUserRepository extends JpaRepository<GameUserEntity, Long> {
 
     boolean existsByUuid(String uuid);
+
+    GameUserEntity findGameUserEntityById(String id);
 }

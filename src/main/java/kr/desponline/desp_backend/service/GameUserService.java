@@ -22,4 +22,8 @@ public class GameUserService {
     public void save(GameUserEntity gameUserEntity) {
         this.gameUserRepository.save(gameUserEntity);
     }
+
+    public GameUserEntity findGameUserEntityById(String id) {
+        return this.gameUserRepository.findGameUserEntityById(id);
+    }
 }
