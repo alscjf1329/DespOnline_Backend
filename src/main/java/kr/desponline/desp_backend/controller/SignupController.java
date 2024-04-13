@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/signup")
 public class SignupController {
 
-    public static final String SESSION_KEY_COOKIE_NAME = "desp_access_token";
+    private static final String SESSION_KEY_COOKIE_NAME = "desp_login_confirm";
     private final TokenService tokenService;
     private final GameUserService gameUserService;
     private final SignUpValidateService signUpValidateService;
@@ -72,7 +72,7 @@ public class SignupController {
         String encodedPassword = encodingService.encode(signupDTO.getPw());
 
         GameUserEntity gameUserEntity = GameUserEntity.createUser(
-            userInfo.getUuid(), signupDTO.getId(), encodedPassword);
+            userInfo.getUuid(), userInfo.getNickname(), signupDTO.getId(), encodedPassword);
 
         gameUserService.save(gameUserEntity);
         return true;
