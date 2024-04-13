@@ -9,5 +9,9 @@ public interface GameUserRepository extends JpaRepository<GameUserEntity, Long> 
 
     boolean existsByUuid(String uuid);
 
+    boolean existsById(String id);
+
     GameUserEntity findGameUserEntityById(String id);
+
+    GameUserEntity findGameUserEntityByUuid(String uuid);
 }

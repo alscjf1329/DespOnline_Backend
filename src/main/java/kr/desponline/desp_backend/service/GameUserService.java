@@ -4,6 +4,7 @@ import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.mysql_repository.webgamedb.GameUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameUserService {
@@ -25,5 +26,24 @@ public class GameUserService {
 
     public GameUserEntity findGameUserEntityById(String id) {
         return this.gameUserRepository.findGameUserEntityById(id);
+    }
+
+    @Transactional(transactionManager = "webgamedbTransactionManager")
+    public void changeId(String uuid, String newId) {
+        GameUserEntity gameUser =
+            this.gameUserRepository.findGameUserEntityByUuid(uuid);
+
+        if (this.gameUserRepository.existsById(newId)) {
+            return;
+        }
+        gameUser.updateId(newId);
+    }
+
+    @Transactional(transactionManager = "webgamedbTransactionManager")
+    public void changePassword(String uuid, String newPassword) {
+        GameUserEntity gameUser =
+            this.gameUserRepository.findGameUserEntityByUuid(uuid);
+
+        gameUser.updatePassword(newPassword);
     }
 }

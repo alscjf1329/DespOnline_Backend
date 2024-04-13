@@ -60,6 +60,14 @@ public class GameUserEntity {
         this.nickname = nickname;
     }
 
+    public void updateId(String newId) {
+        this.id = newId;
+    }
+
+    public void updatePassword(String newEncodedPassword) {
+        this.encodedPassword = newEncodedPassword;
+    }
+
     public enum ROLE {
         ADMIN, STAFF, USER
     }
