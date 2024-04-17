@@ -1,6 +1,6 @@
 package kr.desponline.desp_backend.config.redis;
 
-import kr.desponline.desp_backend.entity.redis.signin.SigninSessionEntity;
+import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -25,16 +25,16 @@ public class SigninSessionRedisConfig extends RedisConfig {
 
     @Bean
     public RedisConnectionFactory signinSessionRedisConnectionFactory() {
-        return createLettuceConnectionFactory(host, port, 3, password);
+        return createLettuceConnectionFactory(host, port, 0, password);
     }
 
     @Bean
-    public RedisTemplate<String, SigninSessionEntity> signinSessionRedisTemplate(
+    public RedisTemplate<String, GameUserEntity> signinSessionRedisTemplate(
         @Qualifier("signinSessionRedisConnectionFactory") RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, SigninSessionEntity> template = new RedisTemplate<>();
+        RedisTemplate<String, GameUserEntity> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(SigninSessionEntity.class));
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(GameUserEntity.class));
         return template;
     }
 }

@@ -8,6 +8,7 @@ group = 'kr.desp-online'
 version = '0.0.1-SNAPSHOT'
 
 jar {
+
     enabled = false
 }
 
@@ -26,6 +27,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.session:spring-session-data-redis'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
