@@ -21,17 +21,21 @@ public class SignupSessionService {
         this.redisTemplate = redisTemplate;
     }
 
-    public String save(SignupSessionEntity signupSessionEntity, long ttl) {
+    public String save(final SignupSessionEntity signupSessionEntity, final long ttl) {
         String randomKey = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(randomKey, signupSessionEntity, ttl, TimeUnit.SECONDS);
         return randomKey;
     }
 
-    public String save(SignupSessionEntity signupSessionEntity) {
+    public String save(final SignupSessionEntity signupSessionEntity) {
         return save(signupSessionEntity, DEFAULT_TTL);
     }
 
-    public SignupSessionEntity findById(String sessionKey) {
+    public SignupSessionEntity findById(final String sessionKey) {
         return this.redisTemplate.opsForValue().get(sessionKey);
+    }
+
+    public Boolean delete(final String sessionKey) {
+        return this.redisTemplate.delete(sessionKey);
     }
 }
