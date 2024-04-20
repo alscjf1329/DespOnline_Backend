@@ -33,7 +33,10 @@ public class SignInController {
         @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) Cookie sessionKeyCookie) {
         // 세션이 존재할 시 ok 보냄
         if (sessionKeyCookie != null) {
-            return ResponseEntity.ok().build();
+            GameUserEntity gameUser = signinService.findSession(sessionKeyCookie.getValue());
+            if (gameUser != null) {
+                return ResponseEntity.ok().body(gameUser);
+            }
         }
 
         if (signInRequestDTO == null) {
