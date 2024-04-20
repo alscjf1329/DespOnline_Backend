@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,20 +26,27 @@ public class SignInController {
         this.signinService = signinService;
     }
 
-    @PostMapping("")
+    @RequestMapping(value = "", method = {RequestMethod.POST, RequestMethod.GET})
     public ResponseEntity<Object> signIn(
-        @RequestBody SigninRequestDTO signInRequestDTO,
+        @RequestBody(required = false) SigninRequestDTO signInRequestDTO,
         HttpServletResponse response,
         @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) Cookie sessionKeyCookie) {
+        // 세션이 존재할 시 ok 보냄
         if (sessionKeyCookie != null) {
             return ResponseEntity.ok().build();
         }
+
+        if (signInRequestDTO == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         GameUserEntity gameUser = signinService.signin(signInRequestDTO);
         if (gameUser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
         String sessionKey = signinService.addSession(gameUser);
         signinService.addSessionKeyCookie(response, sessionKey);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(gameUser);
     }
 }
