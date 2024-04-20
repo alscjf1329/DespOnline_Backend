@@ -8,6 +8,7 @@ import kr.desponline.desp_backend.dto.SignupRequestDTO;
 import kr.desponline.desp_backend.entity.redis.signup.SignupSessionEntity;
 import kr.desponline.desp_backend.service.GameUserService;
 import kr.desponline.desp_backend.service.SignupService;
+import kr.desponline.desp_backend.service.SignupSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class SignupController {
     @PostMapping("")
     public ResponseEntity<?> signup(
         @RequestBody SignupRequestDTO signupDTO,
-        @CookieValue(value = SignupService.SESSION_KEY_COOKIE_NAME, required = false) Cookie sessionKeyCookie) {
+        @CookieValue(value = SignupSessionService.SESSION_KEY_COOKIE_NAME, required = false) Cookie sessionKeyCookie) {
         if (sessionKeyCookie == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body("You are an unauthenticated server user.");

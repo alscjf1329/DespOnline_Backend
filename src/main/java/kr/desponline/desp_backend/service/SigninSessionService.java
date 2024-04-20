@@ -1,5 +1,7 @@
 package kr.desponline.desp_backend.service;
 
+
+import jakarta.servlet.http.Cookie;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SigninSessionService {
 
-    private static final long DEFAULT_TTL = TimeUnit.HOURS.toSeconds(1);
+    public static final String SESSION_KEY_COOKIE_NAME = "desp_login";
+
+    private static final int DEFAULT_TTL = (int) TimeUnit.HOURS.toSeconds(1);
 
     private final RedisTemplate<String, GameUserEntity> redisTemplate;
 
@@ -33,5 +37,13 @@ public class SigninSessionService {
 
     public GameUserEntity findById(String sessionKey) {
         return redisTemplate.opsForValue().get(sessionKey);
+    }
+
+    public Cookie createSessionKeyCookie(final String sessionKey) {
+        Cookie cookie = new jakarta.servlet.http.Cookie(SESSION_KEY_COOKIE_NAME, sessionKey);
+        cookie.setHttpOnly(true); // XSS 공격 방지
+        cookie.setPath("/");
+        cookie.setMaxAge(DEFAULT_TTL);
+        return cookie;
     }
 }

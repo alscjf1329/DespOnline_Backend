@@ -1,8 +1,6 @@
 package kr.desponline.desp_backend.service;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.concurrent.TimeUnit;
 import kr.desponline.desp_backend.dto.AccessCredentialDTO;
 import kr.desponline.desp_backend.dto.CertificationResultDTO;
 import kr.desponline.desp_backend.dto.SignupRequestDTO;
@@ -14,8 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class SignupService {
 
-    public static final String SESSION_KEY_COOKIE_NAME = "desp_login_confirm";
-    private static final int SESSION_KEY_MAX_AGE = (int) TimeUnit.MINUTES.toSeconds(3);
     private final TokenService tokenService;
     private final GameUserService gameUserService;
     private final SignUpValidateService signUpValidateService;
@@ -79,11 +75,7 @@ public class SignupService {
     }
 
     public void addSessionKeyCookie(final HttpServletResponse response, final String sessionKey) {
-        Cookie cookie = new Cookie(SESSION_KEY_COOKIE_NAME, sessionKey);
-        cookie.setHttpOnly(true); // XSS 공격 방지
-        cookie.setPath("/signup");
-        cookie.setMaxAge(SESSION_KEY_MAX_AGE);
-
-        response.addCookie(cookie);
+        response.addCookie(
+            signupSessionService.createSessionKeyCookie(sessionKey));
     }
 }

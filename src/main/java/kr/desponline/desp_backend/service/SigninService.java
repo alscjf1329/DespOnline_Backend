@@ -1,9 +1,7 @@
 package kr.desponline.desp_backend.service;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import kr.desponline.desp_backend.dto.SigninRequestDTO;
 import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class SigninService {
 
-    public static final String SESSION_KEY_COOKIE_NAME = "desp_login";
-    private static final int SESSION_KEY_MAX_AGE = (int) TimeUnit.HOURS.toSeconds(1);
     private final GameUserService gameUserService;
     private final EncodingService encodingService;
     private final MinecraftPublicAPIService minecraftPublicAPIService;
@@ -65,11 +61,7 @@ public class SigninService {
     }
 
     public void addSessionKeyCookie(final HttpServletResponse response, final String sessionKey) {
-        Cookie cookie = new Cookie(SESSION_KEY_COOKIE_NAME, sessionKey);
-        cookie.setHttpOnly(true); // XSS 공격 방지
-        cookie.setPath("/");
-        cookie.setMaxAge(SESSION_KEY_MAX_AGE);
-
-        response.addCookie(cookie);
+        response.addCookie(
+            signinSessionService.createSessionKeyCookie(sessionKey));
     }
 }

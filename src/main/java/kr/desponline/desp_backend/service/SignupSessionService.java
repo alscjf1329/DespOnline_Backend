@@ -1,5 +1,6 @@
 package kr.desponline.desp_backend.service;
 
+import jakarta.servlet.http.Cookie;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import kr.desponline.desp_backend.entity.redis.signup.SignupSessionEntity;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SignupSessionService {
 
-    private static final long DEFAULT_TTL = TimeUnit.MINUTES.toSeconds(3);
+    public static final String SESSION_KEY_COOKIE_NAME = "desp_login_confirm";
+
+    private static final int DEFAULT_TTL = (int) TimeUnit.MINUTES.toSeconds(3);
 
     private final RedisTemplate<String, SignupSessionEntity> redisTemplate;
 
@@ -37,5 +40,13 @@ public class SignupSessionService {
 
     public Boolean delete(final String sessionKey) {
         return this.redisTemplate.delete(sessionKey);
+    }
+
+    public Cookie createSessionKeyCookie(final String sessionKey) {
+        Cookie cookie = new Cookie(SESSION_KEY_COOKIE_NAME, sessionKey);
+        cookie.setHttpOnly(true); // XSS 공격 방지
+        cookie.setPath("/");
+        cookie.setMaxAge(DEFAULT_TTL);
+        return cookie;
     }
 }

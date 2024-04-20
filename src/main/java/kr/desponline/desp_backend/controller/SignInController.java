@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.desponline.desp_backend.dto.SigninRequestDTO;
 import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.SigninService;
+import kr.desponline.desp_backend.service.SigninSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class SignInController {
     public ResponseEntity<Object> signIn(
         @RequestBody SigninRequestDTO signInRequestDTO,
         HttpServletResponse response,
-        @CookieValue(value = SigninService.SESSION_KEY_COOKIE_NAME, required = false) Cookie sessionKeyCookie) {
+        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) Cookie sessionKeyCookie) {
         if (sessionKeyCookie != null) {
             return ResponseEntity.ok().build();
         }
