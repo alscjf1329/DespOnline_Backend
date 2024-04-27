@@ -46,4 +46,8 @@ public class GameUserService {
 
         gameUser.updatePassword(newPassword);
     }
+
+    public boolean existsId(final String id) {
+        return gameUserRepository.existsById(id);
+    }
 }
