@@ -4,7 +4,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.desponline.desp_backend.dto.AccessCredentialDTO;
 import kr.desponline.desp_backend.dto.CertificationResultDTO;
-import kr.desponline.desp_backend.dto.IDExistenceConfirmationDTO;
 import kr.desponline.desp_backend.dto.SignupRequestDTO;
 import kr.desponline.desp_backend.entity.redis.signup.SignupSessionEntity;
 import kr.desponline.desp_backend.service.GameUserService;
@@ -80,16 +79,6 @@ public class SignupController {
         String sessionKey = signupService.addSession(certificationResultDTO, accessCredentialDTO);
 
         signupService.addSessionKeyCookie(response, sessionKey);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/exists/id")
-    public ResponseEntity<?> confirmExistsId(
-        @RequestBody IDExistenceConfirmationDTO idExistenceConfirmationDTO) {
-        if (gameUserService.existsId(idExistenceConfirmationDTO.getId())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-
         return ResponseEntity.ok().build();
     }
 }
