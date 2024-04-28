@@ -1,7 +1,8 @@
 package kr.desponline.desp_backend.controller;
 
-import kr.desponline.desp_backend.dto.PlayerDTO;
-import kr.desponline.desp_backend.dto.PlayerVersusDTO;
+import java.util.List;
+import kr.desponline.desp_backend.entity.mongodb.PlayerEntity;
+import kr.desponline.desp_backend.entity.mongodb.PlayerVersusEntity;
 import kr.desponline.desp_backend.service.PlayerVersusService;
 import kr.desponline.desp_backend.service.RankingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/ranking")
 public class RankingController {
+
     public static final long LIMIT = 100;
     @Autowired
     private RankingService rpgPlayerService;
@@ -22,12 +22,12 @@ public class RankingController {
     private PlayerVersusService playerVersusService;
 
     @GetMapping("/pvp")
-    public List<PlayerVersusDTO> getTopScorePlayer() {
+    public List<PlayerVersusEntity> getTopScorePlayer() {
         return playerVersusService.getTopScorePlayer(LIMIT);
     }
 
     @GetMapping("/level")
-    public List<PlayerDTO> getTopPlayers() {
+    public List<PlayerEntity> getTopPlayers() {
         return rpgPlayerService.readTopPlayers(LIMIT);
     }
 }

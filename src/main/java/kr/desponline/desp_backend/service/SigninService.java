@@ -3,7 +3,7 @@ package kr.desponline.desp_backend.service;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Objects;
 import kr.desponline.desp_backend.dto.SigninRequestDTO;
-import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
+import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ package kr.desponline.desp_backend.service.signin_session_service_test;
 import static org.mockito.Mockito.when;
 
 import java.util.UUID;
-import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
+import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.SigninSessionService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

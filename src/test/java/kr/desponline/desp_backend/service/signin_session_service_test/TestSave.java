@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
+import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.SigninSessionService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

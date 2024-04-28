@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.entity.webgamedb;
+package kr.desponline.desp_backend.entity.mysql.webgamedb;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Entity

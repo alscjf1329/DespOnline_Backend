@@ -3,7 +3,7 @@ package kr.desponline.desp_backend.controller;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.desponline.desp_backend.dto.SigninRequestDTO;
-import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
+import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.SigninService;
 import kr.desponline.desp_backend.service.SigninSessionService;
 import org.springframework.beans.factory.annotation.Autowired;

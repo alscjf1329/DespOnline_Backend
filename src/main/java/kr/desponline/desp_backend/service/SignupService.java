@@ -4,8 +4,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.desponline.desp_backend.dto.AccessCredentialDTO;
 import kr.desponline.desp_backend.dto.CertificationResultDTO;
 import kr.desponline.desp_backend.dto.SignupRequestDTO;
+import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.entity.redis.signup.SignupSessionEntity;
-import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

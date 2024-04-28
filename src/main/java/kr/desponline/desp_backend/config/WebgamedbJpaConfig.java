@@ -32,7 +32,7 @@ public class WebgamedbJpaConfig {
         @Qualifier("webgamedbDataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("kr.desponline.desp_backend.entity.webgamedb"); // webgamedb 엔티티 패키지 위치
+        em.setPackagesToScan("kr.desponline.desp_backend.entity.mysql.webgamedb"); // webgamedb 엔티티 패키지 위치
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setShowSql(true);

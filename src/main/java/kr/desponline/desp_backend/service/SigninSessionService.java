@@ -4,7 +4,7 @@ package kr.desponline.desp_backend.service;
 import jakarta.servlet.http.Cookie;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import kr.desponline.desp_backend.entity.webgamedb.GameUserEntity;
+import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;

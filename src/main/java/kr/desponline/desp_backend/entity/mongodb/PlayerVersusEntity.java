@@ -1,21 +1,23 @@
-package kr.desponline.desp_backend.dto;
+package kr.desponline.desp_backend.entity.mongodb;
 
+import kr.desponline.desp_backend.dto.PlayerVersusRecordDTO;
 import lombok.Getter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Document(collection = "PlayerVersus")
-public class PlayerVersusDTO implements Comparable<PlayerVersusDTO> {
+public class PlayerVersusEntity implements Comparable<PlayerVersusEntity> {
+
     private String nickname;
     private PlayerVersusRecordDTO record;
 
-    public PlayerVersusDTO(String nickname, PlayerVersusRecordDTO record) {
+    public PlayerVersusEntity(String nickname, PlayerVersusRecordDTO record) {
         this.nickname = nickname;
         this.record = record;
     }
 
     @Override
-    public int compareTo(PlayerVersusDTO o) {
+    public int compareTo(PlayerVersusEntity o) {
         // 먼저 score로 비교
         int scoreCompare = Integer.compare(this.record.getScore(), o.record.getScore());
         if (scoreCompare != 0) {
