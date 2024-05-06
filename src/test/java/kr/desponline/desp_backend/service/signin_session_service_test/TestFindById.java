@@ -44,7 +44,7 @@ public class TestFindById {
         when(valueOperations.get(sessionKey)).thenReturn(expectedSession);
 
         // When
-        GameUserEntity actualSession = mockSigninSessionService.findById(sessionKey);
+        GameUserEntity actualSession = mockSigninSessionService.findSession(sessionKey);
 
         // Then
         Assertions.assertThat(expectedSession).usingRecursiveComparison().isEqualTo(actualSession);

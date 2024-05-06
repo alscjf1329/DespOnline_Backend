@@ -42,7 +42,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        GameUserEntity gameUser = signinSessionService.findById(
+        GameUserEntity gameUser = signinSessionService.findSession(
             signinSessionKeyCookie.get().getValue());
 
         if (gameUser == null) {

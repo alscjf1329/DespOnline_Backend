@@ -35,7 +35,7 @@ public class SigninSessionService {
         return save(gameUser, DEFAULT_TTL);
     }
 
-    public GameUserEntity findById(String sessionKey) {
+    public GameUserEntity findSession(String sessionKey) {
         return redisTemplate.opsForValue().get(sessionKey);
     }
 

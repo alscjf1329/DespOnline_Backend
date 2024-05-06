@@ -57,7 +57,7 @@ public class SigninService {
     }
 
     public GameUserEntity findSession(final String sessionKey) {
-        return signinSessionService.findById(sessionKey);
+        return signinSessionService.findSession(sessionKey);
     }
 
     public void addSessionKeyCookie(final HttpServletResponse response, final String sessionKey) {

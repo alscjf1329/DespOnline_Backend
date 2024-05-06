@@ -39,7 +39,7 @@ public class TestSave {
 
         // Then
         assertNotNull(sessionId);
-        GameUserEntity actualSession = signinSessionService.findById(sessionId);
+        GameUserEntity actualSession = signinSessionService.findSession(sessionId);
         Assertions.assertThat(deserializedGameUser).usingRecursiveComparison()
             .isEqualTo(actualSession);
     }
