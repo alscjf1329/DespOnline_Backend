@@ -40,10 +40,14 @@ public class SigninSessionService {
     }
 
     public Cookie createSessionKeyCookie(final String sessionKey) {
-        Cookie cookie = new jakarta.servlet.http.Cookie(SESSION_KEY_COOKIE_NAME, sessionKey);
+        Cookie cookie = new Cookie(SESSION_KEY_COOKIE_NAME, sessionKey);
         cookie.setHttpOnly(true); // XSS 공격 방지
         cookie.setPath("/");
         cookie.setMaxAge(DEFAULT_TTL);
         return cookie;
+    }
+
+    public void removeSession(String sessionKey) {
+        redisTemplate.delete(sessionKey);
     }
 }

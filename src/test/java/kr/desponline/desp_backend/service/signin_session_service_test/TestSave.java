@@ -43,4 +43,25 @@ public class TestSave {
         Assertions.assertThat(deserializedGameUser).usingRecursiveComparison()
             .isEqualTo(actualSession);
     }
+
+    @Test
+    public void testRemove() throws JsonProcessingException {
+        // Given
+        GameUserEntity gameUser = GameUserEntity.createUser(
+            "uuid", "nickname", "id", "pw");
+
+        // json ignore를 적용시키기 위해 json으로 변환 후 다시 deserialize함
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(gameUser);
+        GameUserEntity deserializedGameUser = objectMapper.readValue(json, GameUserEntity.class);
+
+        // When
+        String sessionId = signinSessionService.save(gameUser);
+        signinSessionService.removeSession(sessionId);
+
+        // Then
+        assertNotNull(sessionId);
+        GameUserEntity actualSession = signinSessionService.findSession(sessionId);
+        Assertions.assertThat(actualSession).isEqualTo(null);
+    }
 }
