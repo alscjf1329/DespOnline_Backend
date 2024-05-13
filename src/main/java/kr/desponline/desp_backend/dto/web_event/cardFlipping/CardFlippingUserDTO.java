@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.dto.web_event;
+package kr.desponline.desp_backend.dto.web_event.cardFlipping;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
-import kr.desponline.desp_backend.entity.mysql.webgamedb.CardFlippingEntity;
+import kr.desponline.desp_backend.entity.mysql.webgamedb.CardFlippingUserEntity;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.MySQLTypeConvertService;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CardFlippingDTO {
+public class CardFlippingUserDTO {
 
     private GameUserEntity user;
 
@@ -32,12 +32,12 @@ public class CardFlippingDTO {
     private Integer resetOpportunity;
 
 
-    public static CardFlippingDTO createDefault(
+    public static CardFlippingUserDTO createDefault(
         GameUserEntity user, WebEventEntity event,
         Function<Integer, List<Integer>> randomStrategy) {
 
         int size = (int) event.getInfo().getOrDefault("size", 10);
-        return new CardFlippingDTO(
+        return new CardFlippingUserDTO(
             user,
             event.getId(),
             new ArrayList<>(Collections.nCopies(size, null)),
@@ -47,9 +47,9 @@ public class CardFlippingDTO {
         );
     }
 
-    public CardFlippingEntity toCardFlippingEntity() {
+    public CardFlippingUserEntity toCardFlippingEntity() {
         MySQLTypeConvertService mySQLTypeConvertService = new MySQLTypeConvertService();
-        return new CardFlippingEntity(
+        return new CardFlippingUserEntity(
             null,
             this.user,
             this.eventId,

@@ -10,7 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.List;
-import kr.desponline.desp_backend.dto.web_event.CardFlippingDTO;
+import kr.desponline.desp_backend.dto.web_event.cardFlipping.CardFlippingUserDTO;
 import kr.desponline.desp_backend.service.MySQLTypeConvertService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "card_flipping")
-public class CardFlippingEntity {
+public class CardFlippingUserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,8 +56,8 @@ public class CardFlippingEntity {
         return new MySQLTypeConvertService().stringToList(this.answer, Integer::parseInt);
     }
 
-    public CardFlippingDTO toCardFlippingDTO() {
-        return new CardFlippingDTO(
+    public CardFlippingUserDTO toCardFlippingDTO() {
+        return new CardFlippingUserDTO(
             this.user,
             this.eventId,
             deserializeProgress(),

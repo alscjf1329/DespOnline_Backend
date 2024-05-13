@@ -1,7 +1,7 @@
 package kr.desponline.desp_backend.controller.web_event;
 
 import kr.desponline.desp_backend.dto.EventUserInfoResponseDTO;
-import kr.desponline.desp_backend.dto.web_event.CardFlippingDTO;
+import kr.desponline.desp_backend.dto.web_event.cardFlipping.CardFlippingUserDTO;
 import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.SigninSessionService;
@@ -39,7 +39,7 @@ public class CardFlippingController {
 
     @GetMapping("/{eventId}")
     public ResponseEntity<EventUserInfoResponseDTO> showCardFlippingEvent(
-        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) String sessionKey,
+        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME) String sessionKey,
         @PathVariable("eventId") String eventId
     ) {
         if (sessionKey == null) {
@@ -50,12 +50,12 @@ public class CardFlippingController {
         if (gameUser == null) {
             return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
         }
-        CardFlippingDTO cardFlippingDTO = cardFlippingService.findByUserUuidAndEventId(
+        CardFlippingUserDTO cardFlippingDTO = cardFlippingService.findByUserUuidAndEventId(
             gameUser.getUuid(), eventId);
 
         if (cardFlippingDTO == null) {
             WebEventEntity event = webEventService.findById(eventId);
-            CardFlippingDTO defaultCardFlippingDTO = CardFlippingDTO.createDefault(
+            CardFlippingUserDTO defaultCardFlippingDTO = CardFlippingUserDTO.createDefault(
                 gameUser, event, randomIntegerListStrategy);
             cardFlippingService.save(defaultCardFlippingDTO);
         }
