@@ -58,6 +58,7 @@ public class CardFlippingUserEntity {
 
     public CardFlippingUserDTO toCardFlippingDTO() {
         return new CardFlippingUserDTO(
+            this.id,
             this.user,
             this.eventId,
             deserializeProgress(),

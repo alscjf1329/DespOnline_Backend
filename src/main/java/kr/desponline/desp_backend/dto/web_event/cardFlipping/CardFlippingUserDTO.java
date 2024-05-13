@@ -18,6 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CardFlippingUserDTO {
 
+    private Long id;
+
     private GameUserEntity user;
 
     private String eventId;
@@ -38,6 +40,7 @@ public class CardFlippingUserDTO {
 
         int size = (int) event.getInfo().getOrDefault("size", 10);
         return new CardFlippingUserDTO(
+            null,
             user,
             event.getId(),
             new ArrayList<>(Collections.nCopies(size, null)),
@@ -50,7 +53,7 @@ public class CardFlippingUserDTO {
     public CardFlippingUserEntity toCardFlippingEntity() {
         MySQLTypeConvertService mySQLTypeConvertService = new MySQLTypeConvertService();
         return new CardFlippingUserEntity(
-            null,
+            this.id,
             this.user,
             this.eventId,
             mySQLTypeConvertService.listToString(this.progress),
