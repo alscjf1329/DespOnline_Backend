@@ -2,6 +2,8 @@ package kr.desponline.desp_backend.controller.web_event;
 
 import kr.desponline.desp_backend.dto.EventUserInfoResponseDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.CardFlippingUserDTO;
+import kr.desponline.desp_backend.dto.web_event.cardFlipping.FlipCardResultDTO;
+import kr.desponline.desp_backend.dto.web_event.cardFlipping.RequestFlipCardDTO;
 import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.SigninSessionService;
@@ -13,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +43,7 @@ public class CardFlippingController {
 
     @GetMapping("/{eventId}")
     public ResponseEntity<EventUserInfoResponseDTO> showCardFlippingEvent(
-        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME) String sessionKey,
+        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) String sessionKey,
         @PathVariable("eventId") String eventId
     ) {
         if (sessionKey == null) {
@@ -62,5 +66,39 @@ public class CardFlippingController {
 
         return ResponseEntity.ok()
             .body(new EventUserInfoResponseDTO(webEventService.findById(eventId), cardFlippingDTO));
+    }
+
+    @PostMapping("/{eventId}/flip")
+    public ResponseEntity<FlipCardResultDTO> flipCard(
+        @RequestBody RequestFlipCardDTO requestFlipCardDTO,
+        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) String sessionKey,
+        @PathVariable("eventId") String eventId
+    ) {
+        if (sessionKey == null) {
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
+        }
+
+        GameUserEntity gameUser = signinSessionService.findSession(sessionKey);
+        if (gameUser == null) {
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
+        }
+        CardFlippingUserDTO cardFlippingDTO = cardFlippingService.findByUserUuidAndEventId(
+            gameUser.getUuid(), eventId);
+
+        if (cardFlippingDTO == null) {
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
+        }
+
+        if (cardFlippingDTO.getFlipOpportunity() <= 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        FlipCardResultDTO flipResult = cardFlippingDTO.flip(requestFlipCardDTO.getFlipIndexes());
+        if (flipResult.isSuccess()) {
+            cardFlippingService.save(cardFlippingDTO);
+        }
+
+        return ResponseEntity.ok()
+            .body(flipResult);
     }
 }

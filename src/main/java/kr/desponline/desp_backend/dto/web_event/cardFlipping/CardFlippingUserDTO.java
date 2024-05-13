@@ -62,4 +62,25 @@ public class CardFlippingUserDTO {
             this.resetOpportunity
         );
     }
+
+    public List<Integer> show(List<Integer> indexes) {
+        return indexes.stream().map(index -> answer.get(index)).toList();
+    }
+
+    public FlipCardResultDTO flip(List<Integer> indexes) {
+        List<Integer> showResult = indexes.stream().map(index -> answer.get(index)).toList();
+
+        indexes.forEach(index -> {
+            progress.set(index, answer.get(index));
+        });
+        return new FlipCardResultDTO(allSame(showResult), showResult);
+    }
+
+    private boolean allSame(List<Integer> elements) {
+        if (elements == null || elements.isEmpty()) {
+            return false;
+        }
+
+        return elements.stream().allMatch(element -> element.equals(elements.get(0)));
+    }
 }
