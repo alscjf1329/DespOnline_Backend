@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/event/cardFlipping")
 public class CardFlippingController {
 
     private final WebEventService webEventService;
@@ -37,7 +37,7 @@ public class CardFlippingController {
         this.randomIntegerListStrategy = randomIntegerListStrategy;
     }
 
-    @GetMapping("/cardFlipping/{eventId}")
+    @GetMapping("/{eventId}")
     public ResponseEntity<EventUserInfoResponseDTO> showCardFlippingEvent(
         @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) String sessionKey,
         @PathVariable("eventId") String eventId
