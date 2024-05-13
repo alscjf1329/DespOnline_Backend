@@ -1,6 +1,7 @@
 package kr.desponline.desp_backend.service.web_event;
 
 import kr.desponline.desp_backend.dto.web_event.CardFlippingDTO;
+import kr.desponline.desp_backend.entity.mysql.webgamedb.CardFlippingEntity;
 import kr.desponline.desp_backend.mysql_repository.webgamedb.CardFlippingRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,12 @@ public class CardFlippingService {
     }
 
     public CardFlippingDTO findByUserUuidAndEventId(String uuid, String eventId) {
-        return cardFlippingRepository.findByUserUuidAndEventId(uuid, eventId)
-            .toCardFlippingDTO();
+        CardFlippingEntity cardFlipping = cardFlippingRepository.findByUserUuidAndEventId(
+            uuid, eventId);
+        if (cardFlipping == null) {
+            return null;
+        }
+        return cardFlipping.toCardFlippingDTO();
     }
 
     public void save(CardFlippingDTO processedCardFlippingEntity) {
