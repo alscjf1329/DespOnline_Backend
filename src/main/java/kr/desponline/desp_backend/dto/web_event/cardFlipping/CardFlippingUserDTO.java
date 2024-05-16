@@ -40,16 +40,13 @@ public class CardFlippingUserDTO {
         GameUserEntity user, WebEventEntity event,
         Function<Integer, List<Integer>> randomStrategy) {
 
-        int size = (int) event.getInfo().getOrDefault("size", 10);
-        int defaultRemainingFlipCount = (int) event.getInfo().getOrDefault("max-opportunity", 10);
-
         return new CardFlippingUserDTO(
             null,
             user,
             event.getId(),
-            new ArrayList<>(Collections.nCopies(size, null)),
-            randomStrategy.apply(size),
-            defaultRemainingFlipCount,
+            new ArrayList<>(Collections.nCopies(event.getSize(), null)),
+            randomStrategy.apply(event.getSize()),
+            event.getMaxOpportunity(),
             0,
             0
         );

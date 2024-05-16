@@ -34,7 +34,7 @@ public class CardFlippingService {
         CardFlippingUserDTO cardFlippingUserDTO,
         RequestFlipCardDTO requestFlipCardDTO) {
 
-        if (requestFlipCardDTO.getFlipIndexes().size() != flipCount) {
+        if (requestFlipCardDTO.getFlipIndexes().size() != event.getFlipCount()) {
             return false;
         }
 
@@ -43,7 +43,7 @@ public class CardFlippingService {
         }
 
         for (Integer index : requestFlipCardDTO.getFlipIndexes()) {
-            if (index == null || index < 0 || index > (size / 2 - 1)) {
+            if (index == null || index < 0 || index > (event.getSize() / 2 - 1)) {
                 return false;
             }
         }

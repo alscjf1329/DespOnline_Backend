@@ -1,7 +1,9 @@
 package kr.desponline.desp_backend.entity.mongodb.web_event;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
+import kr.desponline.desp_backend.dto.web_event.WebEventDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,13 +28,13 @@ public class WebEventEntity {
     @Field(value = "description")
     protected String description;
 
-    @Field(value = "banner-uri")
+    @Field(value = "bannerUri")
     protected String bannerUri;
 
-    @Field(value = "start-date")
+    @Field(value = "startDate")
     protected LocalDateTime startDate;
 
-    @Field(value = "end-date")
+    @Field(value = "endDate")
     protected LocalDateTime endDate;
 
     @Field(value = "type")
@@ -40,4 +42,33 @@ public class WebEventEntity {
 
     @Field(value = "info")
     protected Map<String, Object> info;
+
+    public int getSize() {
+        return (int) info.get("size");
+    }
+
+    public int getMaxOpportunity() {
+        return (int) info.get("maxOpportunity");
+    }
+
+    public int getFlipCount() {
+        return (int) info.get("flipCount");
+    }
+
+    public List<String> getRewards() {
+        return (List<String>) info.get("rewards");
+    }
+
+    public WebEventDTO toWebEventDTO() {
+        return new WebEventDTO(
+            this.id,
+            this.title,
+            this.description,
+            this.bannerUri,
+            this.startDate,
+            this.endDate,
+            this.type,
+            this.info
+        );
+    }
 }
