@@ -29,7 +29,9 @@ public class CardFlippingUserDTO {
     @JsonIgnore
     private List<Integer> answer;
 
-    private Integer flipOpportunity;
+    private Integer remainingFlipCount; // 판당 남은 뒤집을 수 있는 횟수
+
+    private Integer flipOpportunity; // 뒤집을 수 있는 횟수
 
     private Integer resetOpportunity;
 
@@ -39,12 +41,15 @@ public class CardFlippingUserDTO {
         Function<Integer, List<Integer>> randomStrategy) {
 
         int size = (int) event.getInfo().getOrDefault("size", 10);
+        int defaultRemainingFlipCount = (int) event.getInfo().getOrDefault("max-opportunity", 10);
+
         return new CardFlippingUserDTO(
             null,
             user,
             event.getId(),
             new ArrayList<>(Collections.nCopies(size, null)),
             randomStrategy.apply(size),
+            defaultRemainingFlipCount,
             0,
             0
         );
@@ -58,6 +63,7 @@ public class CardFlippingUserDTO {
             this.eventId,
             mySQLTypeConvertService.listToString(this.progress),
             mySQLTypeConvertService.listToString(this.answer),
+            this.remainingFlipCount,
             this.flipOpportunity,
             this.resetOpportunity
         );
@@ -73,6 +79,8 @@ public class CardFlippingUserDTO {
         indexes.forEach(index -> {
             progress.set(index, answer.get(index));
         });
+
+        this.flipOpportunity--;
         return new FlipCardResultDTO(allSame(showResult), showResult);
     }
 
