@@ -29,11 +29,16 @@ public class CardFlippingService {
         cardFlippingRepository.save(processedCardFlippingEntity.toCardFlippingEntity());
     }
 
-    public boolean validateRequest(WebEventEntity webEvent, RequestFlipCardDTO requestFlipCardDTO) {
-        int size = (int) webEvent.getInfo().get("size");
-        int flipCount = (int) webEvent.getInfo().get("flip-count");
+    public boolean validateRequestFlipCardDTO(
+        WebEventEntity event,
+        CardFlippingUserDTO cardFlippingUserDTO,
+        RequestFlipCardDTO requestFlipCardDTO) {
 
         if (requestFlipCardDTO.getFlipIndexes().size() != flipCount) {
+            return false;
+        }
+
+        if (cardFlippingUserDTO.checkFlipped(requestFlipCardDTO.getFlipIndexes())) {
             return false;
         }
 

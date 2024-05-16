@@ -84,6 +84,19 @@ public class CardFlippingUserDTO {
         return new FlipCardResultDTO(allSame(showResult), showResult);
     }
 
+    public void reset(WebEventEntity event,
+        Function<Integer, List<Integer>> randomStrategy) {
+        this.progress = new ArrayList<>(Collections.nCopies(event.getSize(), null));
+        this.answer = randomStrategy.apply(event.getSize());
+        this.remainingFlipCount = event.getMaxOpportunity();
+    }
+
+    public boolean checkFlipped(List<Integer> indexes) {
+        return !indexes.stream()
+            .filter(index -> this.progress.get(index) != null).toList()
+            .isEmpty();
+    }
+
     private boolean allSame(List<Integer> elements) {
         if (elements == null || elements.isEmpty()) {
             return false;

@@ -94,8 +94,8 @@ public class CardFlippingController {
         }
 
         WebEventEntity event = webEventService.findById(eventId);
-        if (!cardFlippingService.validateRequest(event, requestFlipCardDTO)) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        if (!cardFlippingService.validateRequestFlipCardDTO(event, cardFlippingDTO, requestFlipCardDTO)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         FlipCardResultDTO flipResult = cardFlippingDTO.flip(requestFlipCardDTO.getFlipIndexes());
