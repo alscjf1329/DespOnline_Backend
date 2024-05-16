@@ -1,6 +1,6 @@
 package kr.desponline.desp_backend.dto;
 
-import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
+import kr.desponline.desp_backend.dto.web_event.WebEventDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EventUserInfoResponseDTO {
 
-    private WebEventEntity eventInfo;
+    private WebEventDTO eventInfo;
     private Object eventUserInfo;
 }

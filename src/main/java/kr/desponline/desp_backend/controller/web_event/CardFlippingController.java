@@ -65,7 +65,7 @@ public class CardFlippingController {
         }
 
         return ResponseEntity.ok()
-            .body(new EventUserInfoResponseDTO(webEventService.findById(eventId), cardFlippingDTO));
+            .body(new EventUserInfoResponseDTO(webEventService.findById(eventId).toWebEventDTO(), cardFlippingDTO));
     }
 
     @PostMapping("/{eventId}/flip")
