@@ -93,12 +93,14 @@ public class CardFlippingController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        FlipCardResultDTO flipResult = cardFlippingDTO.flip(requestFlipCardDTO.getFlipIndexes());
-        if (flipResult.isSuccess()) {
-            cardFlippingService.save(cardFlippingDTO);
+        WebEventEntity event = webEventService.findById(eventId);
+        if (!cardFlippingService.validateRequest(event, requestFlipCardDTO)) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
 
-        return ResponseEntity.ok()
-            .body(flipResult);
+        FlipCardResultDTO flipResult = cardFlippingDTO.flip(requestFlipCardDTO.getFlipIndexes());
+        cardFlippingService.save(cardFlippingDTO);
+
+        return ResponseEntity.ok().body(flipResult);
     }
 }
