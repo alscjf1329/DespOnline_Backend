@@ -43,7 +43,7 @@ public class CardFlippingService {
         }
 
         for (Integer index : requestFlipCardDTO.getFlipIndexes()) {
-            if (index == null || index < 0 || index > (event.getSize() / 2 - 1)) {
+            if (index == null || index < 0 || index > event.getSize() - 1) {
                 return false;
             }
         }
