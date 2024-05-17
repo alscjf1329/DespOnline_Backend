@@ -73,9 +73,11 @@ public class CardFlippingUserDTO {
     public FlipCardResultDTO flip(List<Integer> indexes) {
         List<Integer> showResult = indexes.stream().map(index -> answer.get(index)).toList();
 
-        indexes.forEach(index -> {
-            progress.set(index, answer.get(index));
-        });
+        if (allSame(showResult)) {
+            indexes.forEach(index -> {
+                progress.set(index, answer.get(index));
+            });
+        }
 
         this.flipOpportunity--;
         return new FlipCardResultDTO(allSame(showResult), showResult);
