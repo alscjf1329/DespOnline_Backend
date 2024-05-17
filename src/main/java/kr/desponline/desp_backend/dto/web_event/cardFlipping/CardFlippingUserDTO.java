@@ -80,7 +80,7 @@ public class CardFlippingUserDTO {
         }
 
         this.flipOpportunity--;
-        return new FlipCardResultDTO(allSame(showResult), showResult);
+        return new FlipCardResultDTO(allSame(showResult), showResult, flipOpportunity, progress);
     }
 
     public void reset(WebEventEntity event,

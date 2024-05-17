@@ -8,6 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FlipCardResultDTO {
 
-    private boolean success;
+    private Boolean success;
     private List<Integer> flippedCardAnswer;
+    private Integer remainingFlipOpportunity;
+    private List<Integer> cardStatus;
 }
