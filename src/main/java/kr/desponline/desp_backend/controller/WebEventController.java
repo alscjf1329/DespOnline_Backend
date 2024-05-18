@@ -1,5 +1,8 @@
 package kr.desponline.desp_backend.controller;
 
+import java.util.List;
+import kr.desponline.desp_backend.dto.web_event.WebEventDTO;
+import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
 import kr.desponline.desp_backend.service.WebEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +18,14 @@ public class WebEventController {
 
 
     @Autowired
-    public WebEventController(
-        WebEventService webEventService) {
+    public WebEventController(WebEventService webEventService) {
         this.webEventService = webEventService;
     }
 
     @GetMapping("")
-    public ResponseEntity<?> findAllEventInPeriod() {
-        return ResponseEntity.ok().body(webEventService.findAllInPeriod());
+    public ResponseEntity<List<WebEventDTO>> findAllEventInPeriod() {
+        List<WebEventDTO> events = webEventService.findAllInPeriod().stream()
+            .map(WebEventEntity::toWebEventDTO).toList();
+        return ResponseEntity.ok().body(events);
     }
 }
