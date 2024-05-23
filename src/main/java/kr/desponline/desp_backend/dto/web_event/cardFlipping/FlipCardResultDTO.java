@@ -11,5 +11,6 @@ public class FlipCardResultDTO {
     private Boolean success;
     private List<Integer> flippedCardAnswer;
     private Integer remainingFlipOpportunity;
+    private Integer rewardLevel;
     private List<Integer> cardStatus;
 }
