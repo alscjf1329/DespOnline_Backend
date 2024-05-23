@@ -93,11 +93,14 @@ public class CardFlippingUserDTO {
             progress);
     }
 
-    public void reset(WebEventEntity event,
+    public ResetCardStatusResultDTO reset(WebEventEntity event,
         Function<Integer, List<Integer>> randomStrategy) {
+        this.rewardLevel = 0;
         this.progress = new ArrayList<>(Collections.nCopies(event.getSize(), null));
         this.answer = randomStrategy.apply(event.getSize());
         this.remainingFlipCount = event.getMaxOpportunity();
+        this.resetOpportunity--;
+        return new ResetCardStatusResultDTO(this.resetOpportunity, this.rewardLevel, this.progress);
     }
 
     public boolean checkFlipped(List<Integer> indexes) {
