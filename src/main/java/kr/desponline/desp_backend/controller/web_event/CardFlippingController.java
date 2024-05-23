@@ -38,12 +38,13 @@ public class CardFlippingController {
         WebEventService webEventService,
         SigninSessionService signinSessionService,
         CardFlippingService cardFlippingService,
-        RandomIntegerListStrategy randomIntegerListStrategy
-    ) {
+        RandomIntegerListStrategy randomIntegerListStrategy,
+        RewardService gameMailService) {
         this.webEventService = webEventService;
         this.signinSessionService = signinSessionService;
         this.cardFlippingService = cardFlippingService;
         this.randomIntegerListStrategy = randomIntegerListStrategy;
+        this.gameMailService = gameMailService;
     }
 
     @GetMapping("/{eventId}")
@@ -70,7 +71,8 @@ public class CardFlippingController {
         }
 
         return ResponseEntity.ok()
-            .body(new EventUserInfoResponseDTO(webEventService.findById(eventId).toWebEventDTO(), cardFlippingDTO));
+            .body(new EventUserInfoResponseDTO(webEventService.findById(eventId).toWebEventDTO(),
+                cardFlippingDTO));
     }
 
     @PostMapping("/{eventId}/flip")
@@ -95,15 +97,32 @@ public class CardFlippingController {
         }
 
         if (cardFlippingDTO.getFlipOpportunity() <= 0) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        if (cardFlippingDTO.getRemainingFlipCount() <= 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         WebEventEntity event = webEventService.findById(eventId);
-        if (!cardFlippingService.validateRequestFlipCardDTO(event, cardFlippingDTO, requestFlipCardDTO)) {
+        if (!cardFlippingService.validateRequestFlipCardDTO(event, cardFlippingDTO,
+            requestFlipCardDTO)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         FlipCardResultDTO flipResult = cardFlippingDTO.flip(requestFlipCardDTO.getFlipIndexes());
+        String randomRewardName = event.getRandomReward(flipResult.getRewardLevel() - 1);
+
+        if (flipResult.getSuccess()) {
+            GameRewardMailRequestDTO gameRewardMailRequestDTO = new GameRewardMailRequestDTO(
+                List.of(cardFlippingDTO.getUser().getUuid()),
+                event.getTitle(),
+                (flipResult.getRewardLevel() - 1) + "단계 보상",
+                randomRewardName,
+                0.0
+            );
+            gameMailService.sendReward(gameRewardMailRequestDTO);
+        }
         cardFlippingService.save(cardFlippingDTO);
 
         return ResponseEntity.ok().body(flipResult);
