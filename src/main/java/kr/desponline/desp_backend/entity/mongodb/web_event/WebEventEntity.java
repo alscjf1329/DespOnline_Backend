@@ -3,6 +3,7 @@ package kr.desponline.desp_backend.entity.mongodb.web_event;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import kr.desponline.desp_backend.dto.web_event.WebEventDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -55,8 +56,8 @@ public class WebEventEntity {
         return (int) info.get("flipCount");
     }
 
-    public List<String> getRewards() {
-        return (List<String>) info.get("rewards");
+    public List<List<String>> getRewards() {
+        return (List<List<String>>) info.get("rewards");
     }
 
     public WebEventDTO toWebEventDTO() {
@@ -70,5 +71,19 @@ public class WebEventEntity {
             this.type,
             this.info
         );
+    }
+
+    public String getRandomReward(int rewardLevel) {
+        List<String> rewardsInRewardLevel = getRewards().get(rewardLevel);
+
+        // rewardsInRewardLevel 리스트가 비어있는지 확인
+        if (rewardsInRewardLevel == null || rewardsInRewardLevel.isEmpty()) {
+            return null; // 보상이 없는 경우 null 반환 또는 다른 처리 방법 선택
+        }
+
+        // Random 클래스를 사용하여 리스트에서 랜덤한 요소 선택
+        Random random = new Random();
+        int randomIndex = random.nextInt(rewardsInRewardLevel.size());
+        return rewardsInRewardLevel.get(randomIndex);
     }
 }
