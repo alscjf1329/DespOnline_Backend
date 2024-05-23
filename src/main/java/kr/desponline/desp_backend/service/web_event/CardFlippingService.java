@@ -33,7 +33,6 @@ public class CardFlippingService {
         WebEventEntity event,
         CardFlippingUserDTO cardFlippingUserDTO,
         RequestFlipCardDTO requestFlipCardDTO) {
-
         if (requestFlipCardDTO.getFlipIndexes().size() != event.getFlipCount()) {
             return false;
         }

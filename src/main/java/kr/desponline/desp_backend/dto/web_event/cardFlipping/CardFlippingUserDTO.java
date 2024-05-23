@@ -24,6 +24,8 @@ public class CardFlippingUserDTO {
 
     private String eventId;
 
+    private Integer rewardLevel;
+
     private List<Integer> progress;
 
     @JsonIgnore
@@ -44,6 +46,7 @@ public class CardFlippingUserDTO {
             null,
             user,
             event.getId(),
+            0,
             new ArrayList<>(Collections.nCopies(event.getSize(), null)),
             randomStrategy.apply(event.getSize()),
             event.getMaxOpportunity(),
@@ -58,6 +61,7 @@ public class CardFlippingUserDTO {
             this.id,
             this.user,
             this.eventId,
+            this.rewardLevel,
             mySQLTypeConvertService.listToString(this.progress),
             mySQLTypeConvertService.listToString(this.answer),
             this.remainingFlipCount,
@@ -77,10 +81,16 @@ public class CardFlippingUserDTO {
             indexes.forEach(index -> {
                 progress.set(index, answer.get(index));
             });
+            this.rewardLevel++;
         }
-
+        this.remainingFlipCount--;
         this.flipOpportunity--;
-        return new FlipCardResultDTO(allSame(showResult), showResult, flipOpportunity, progress);
+        return new FlipCardResultDTO(
+            allSame(showResult),
+            showResult,
+            flipOpportunity,
+            rewardLevel,
+            progress);
     }
 
     public void reset(WebEventEntity event,

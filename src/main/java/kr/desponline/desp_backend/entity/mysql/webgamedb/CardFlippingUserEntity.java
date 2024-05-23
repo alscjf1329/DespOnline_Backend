@@ -36,13 +36,16 @@ public class CardFlippingUserEntity {
     @Column(name = "event_id")
     private String eventId;
 
+    @Column(name = "reward_level")
+    private Integer rewardLevel;
+
     @Column(nullable = false)
     private String progress;
 
     @Column(nullable = false)
     private String answer;
 
-    @Column(name = "remaining_flip_opportunity", nullable = false)
+    @Column(name = "remaining_flip_count", nullable = false)
     private Integer remainingFlipCount;
 
     @Column(name = "flip_opportunity", nullable = false)
@@ -64,6 +67,7 @@ public class CardFlippingUserEntity {
             this.id,
             this.user,
             this.eventId,
+            this.rewardLevel,
             deserializeProgress(),
             deserializeAnswer(),
             this.remainingFlipCount,
