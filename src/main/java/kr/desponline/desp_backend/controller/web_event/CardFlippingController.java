@@ -1,11 +1,15 @@
 package kr.desponline.desp_backend.controller.web_event;
 
+import java.util.List;
 import kr.desponline.desp_backend.dto.EventUserInfoResponseDTO;
+import kr.desponline.desp_backend.dto.GameRewardMailRequestDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.CardFlippingUserDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.FlipCardResultDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.RequestFlipCardDTO;
+import kr.desponline.desp_backend.dto.web_event.cardFlipping.ResetCardStatusResultDTO;
 import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
+import kr.desponline.desp_backend.service.RewardService;
 import kr.desponline.desp_backend.service.SigninSessionService;
 import kr.desponline.desp_backend.service.WebEventService;
 import kr.desponline.desp_backend.service.web_event.CardFlippingService;
@@ -28,6 +32,7 @@ public class CardFlippingController {
     private final SigninSessionService signinSessionService;
     private final CardFlippingService cardFlippingService;
     private final RandomIntegerListStrategy randomIntegerListStrategy;
+    private final RewardService gameMailService;
 
     public CardFlippingController(
         WebEventService webEventService,
@@ -102,5 +107,37 @@ public class CardFlippingController {
         cardFlippingService.save(cardFlippingDTO);
 
         return ResponseEntity.ok().body(flipResult);
+    }
+
+    @PostMapping("/{eventId}/reset")
+    public ResponseEntity<?> resetCards(
+        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) String sessionKey,
+        @PathVariable("eventId") String eventId
+    ) {
+        if (sessionKey == null) {
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
+        }
+
+        GameUserEntity gameUser = signinSessionService.findSession(sessionKey);
+        if (gameUser == null) {
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
+        }
+        CardFlippingUserDTO cardFlippingDTO = cardFlippingService.findByUserUuidAndEventId(
+            gameUser.getUuid(), eventId);
+
+        if (cardFlippingDTO == null) {
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
+        }
+
+        if (cardFlippingDTO.getResetOpportunity() <= 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        WebEventEntity event = webEventService.findById(eventId);
+        ResetCardStatusResultDTO resetCardStatusResultDTO = cardFlippingDTO.reset(event,
+            randomIntegerListStrategy);
+        cardFlippingService.save(cardFlippingDTO);
+
+        return ResponseEntity.ok().body(resetCardStatusResultDTO);
     }
 }
