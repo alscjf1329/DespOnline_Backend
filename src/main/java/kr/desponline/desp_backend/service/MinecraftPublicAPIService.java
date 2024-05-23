@@ -1,5 +1,7 @@
 package kr.desponline.desp_backend.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersUriSpec;
+import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
 @Service
@@ -58,5 +61,29 @@ public class MinecraftPublicAPIService {
                 return null;
             }
         }).blockFirst();
+    }
+
+    public boolean pingToServer(String address) {
+        RequestHeadersUriSpec<?> requestHeadersUriSpec = client.get();
+        RequestHeadersSpec<?> headersSpec = requestHeadersUriSpec.uri(
+            "https://api.mcsrvstat.us/3/" + address);
+
+        return headersSpec.exchangeToMono(response -> {
+            if (response.statusCode().is2xxSuccessful()) {
+                return response.bodyToMono(String.class)
+                    .mapNotNull(body -> {
+                        try {
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            JsonNode rootNode = objectMapper.readTree(body);
+                            return rootNode.path("debug").path("ping").asText();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    });
+            } else {
+                return Mono.empty();
+            }
+        }).blockOptional().isPresent();
     }
 }
