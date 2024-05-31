@@ -1,13 +1,13 @@
 package kr.desponline.desp_backend.service;
 
 
-import jakarta.servlet.http.Cookie;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,11 +39,12 @@ public class SigninSessionService {
         return redisTemplate.opsForValue().get(sessionKey);
     }
 
-    public Cookie createSessionKeyCookie(final String sessionKey) {
-        Cookie cookie = new Cookie(SESSION_KEY_COOKIE_NAME, sessionKey);
-        cookie.setHttpOnly(true); // XSS 공격 방지
-        cookie.setPath("/");
-        cookie.setMaxAge(DEFAULT_TTL);
+    public ResponseCookie createSessionKeyCookie(final String sessionKey) {
+        ResponseCookie cookie = ResponseCookie.from(SESSION_KEY_COOKIE_NAME, sessionKey)
+            .httpOnly(true)
+            .secure(true)
+            .maxAge(DEFAULT_TTL)
+            .build();
         return cookie;
     }
 

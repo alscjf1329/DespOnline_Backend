@@ -61,7 +61,7 @@ public class SigninService {
     }
 
     public void addSessionKeyCookie(final HttpServletResponse response, final String sessionKey) {
-        response.addCookie(
-            signinSessionService.createSessionKeyCookie(sessionKey));
+        response.addHeader("Set-Cookie",
+            signinSessionService.createSessionKeyCookie(sessionKey).toString());
     }
 }
