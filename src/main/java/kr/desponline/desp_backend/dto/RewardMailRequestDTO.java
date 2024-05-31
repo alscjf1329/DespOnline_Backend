@@ -6,11 +6,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class GameRewardMailRequestDTO {
+public class RewardMailRequestDTO {
 
     private List<String> uuids;
     private String senderName;
     private String letter;
     private String rewardName;
-    private Double money;
 }
