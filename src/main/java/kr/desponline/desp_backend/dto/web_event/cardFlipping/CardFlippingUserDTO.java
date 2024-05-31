@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
+import kr.desponline.desp_backend.entity.mongodb.web_event.details.CardFlippingDetail;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.CardFlippingUserEntity;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.MySQLTypeConvertService;
@@ -41,15 +42,16 @@ public class CardFlippingUserDTO {
     public static CardFlippingUserDTO createDefault(
         GameUserEntity user, WebEventEntity event,
         Function<Integer, List<Integer>> randomStrategy) {
+        CardFlippingDetail details = (CardFlippingDetail) event.getDetails();
 
         return new CardFlippingUserDTO(
             null,
             user,
             event.getId(),
             0,
-            new ArrayList<>(Collections.nCopies(event.getSize(), null)),
-            randomStrategy.apply(event.getSize()),
-            event.getMaxOpportunity(),
+            new ArrayList<>(Collections.nCopies(details.getSize(), null)),
+            randomStrategy.apply(details.getSize()),
+            details.getMaxOpportunity(),
             0,
             0
         );
@@ -95,10 +97,11 @@ public class CardFlippingUserDTO {
 
     public ResetCardStatusResultDTO reset(WebEventEntity event,
         Function<Integer, List<Integer>> randomStrategy) {
+        CardFlippingDetail details = (CardFlippingDetail) event.getDetails();
         this.rewardLevel = 0;
-        this.progress = new ArrayList<>(Collections.nCopies(event.getSize(), null));
-        this.answer = randomStrategy.apply(event.getSize());
-        this.remainingFlipCount = event.getMaxOpportunity();
+        this.progress = new ArrayList<>(Collections.nCopies(details.getSize(), null));
+        this.answer = randomStrategy.apply(details.getSize());
+        this.remainingFlipCount = details.getMaxOpportunity();
         this.resetOpportunity--;
         return new ResetCardStatusResultDTO(this.resetOpportunity, this.rewardLevel, this.progress);
     }

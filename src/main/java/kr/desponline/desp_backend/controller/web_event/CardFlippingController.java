@@ -8,6 +8,7 @@ import kr.desponline.desp_backend.dto.web_event.cardFlipping.FlipCardResultDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.RequestFlipCardDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.ResetCardStatusResultDTO;
 import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
+import kr.desponline.desp_backend.entity.mongodb.web_event.details.CardFlippingDetail;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import kr.desponline.desp_backend.service.RewardMailBoxService;
 import kr.desponline.desp_backend.service.SigninSessionService;
@@ -111,7 +112,8 @@ public class CardFlippingController {
         }
 
         FlipCardResultDTO flipResult = cardFlippingDTO.flip(requestFlipCardDTO.getFlipIndexes());
-        String randomRewardName = event.getRandomReward(flipResult.getRewardLevel() - 1);
+        CardFlippingDetail eventDetails = (CardFlippingDetail) event.getDetails();
+        String randomRewardName = eventDetails.getRandomReward(flipResult.getRewardLevel() - 1);
 
         if (flipResult.getSuccess()) {
             RewardMailRequestDTO gameRewardMailRequestDTO = new RewardMailRequestDTO(
