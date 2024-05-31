@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.interceptors;
+package kr.desponline.desp_backend.config.interceptor;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

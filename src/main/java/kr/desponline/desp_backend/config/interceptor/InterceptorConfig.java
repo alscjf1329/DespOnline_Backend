@@ -1,16 +1,15 @@
-package kr.desponline.desp_backend.config;
+package kr.desponline.desp_backend.config.interceptor;
 
-import kr.desponline.desp_backend.interceptors.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebMVCConfig implements WebMvcConfigurer {
+public class InterceptorConfig implements WebMvcConfigurer {
 
     private final AuthInterceptor authInterceptor;
 
-    public WebMVCConfig(AuthInterceptor authInterceptor) {
+    public InterceptorConfig(AuthInterceptor authInterceptor) {
         this.authInterceptor = authInterceptor;
     }
 

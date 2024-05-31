@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.config;
+package kr.desponline.desp_backend.config.database;
 
 import com.zaxxer.hikari.HikariDataSource;
 import java.util.HashMap;
