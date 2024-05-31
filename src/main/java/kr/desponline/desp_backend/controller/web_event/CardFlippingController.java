@@ -2,14 +2,14 @@ package kr.desponline.desp_backend.controller.web_event;
 
 import java.util.List;
 import kr.desponline.desp_backend.dto.EventUserInfoResponseDTO;
-import kr.desponline.desp_backend.dto.GameRewardMailRequestDTO;
+import kr.desponline.desp_backend.dto.RewardMailRequestDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.CardFlippingUserDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.FlipCardResultDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.RequestFlipCardDTO;
 import kr.desponline.desp_backend.dto.web_event.cardFlipping.ResetCardStatusResultDTO;
 import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
-import kr.desponline.desp_backend.service.RewardService;
+import kr.desponline.desp_backend.service.RewardMailBoxService;
 import kr.desponline.desp_backend.service.SigninSessionService;
 import kr.desponline.desp_backend.service.WebEventService;
 import kr.desponline.desp_backend.service.web_event.CardFlippingService;
@@ -32,14 +32,14 @@ public class CardFlippingController {
     private final SigninSessionService signinSessionService;
     private final CardFlippingService cardFlippingService;
     private final RandomIntegerListStrategy randomIntegerListStrategy;
-    private final RewardService gameMailService;
+    private final RewardMailBoxService gameMailService;
 
     public CardFlippingController(
         WebEventService webEventService,
         SigninSessionService signinSessionService,
         CardFlippingService cardFlippingService,
         RandomIntegerListStrategy randomIntegerListStrategy,
-        RewardService gameMailService) {
+        RewardMailBoxService gameMailService) {
         this.webEventService = webEventService;
         this.signinSessionService = signinSessionService;
         this.cardFlippingService = cardFlippingService;
@@ -114,14 +114,13 @@ public class CardFlippingController {
         String randomRewardName = event.getRandomReward(flipResult.getRewardLevel() - 1);
 
         if (flipResult.getSuccess()) {
-            GameRewardMailRequestDTO gameRewardMailRequestDTO = new GameRewardMailRequestDTO(
+            RewardMailRequestDTO gameRewardMailRequestDTO = new RewardMailRequestDTO(
                 List.of(cardFlippingDTO.getUser().getUuid()),
                 event.getTitle(),
                 (flipResult.getRewardLevel() - 1) + "단계 보상",
-                randomRewardName,
-                0.0
+                randomRewardName
             );
-            gameMailService.sendReward(gameRewardMailRequestDTO);
+            gameMailService.sendRewardMail(gameRewardMailRequestDTO);
         }
         cardFlippingService.save(cardFlippingDTO);
 
