@@ -1,7 +1,7 @@
 package kr.desponline.desp_backend.service;
 
 import kr.desponline.desp_backend.entity.mysql.despdb.UserEntity;
-import kr.desponline.desp_backend.mysql_repository.despdb.UserRepository;
+import kr.desponline.desp_backend.repository.mysql.despdb.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

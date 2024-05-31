@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.mongodb_repository;
+package kr.desponline.desp_backend.repository.mongodb;
 
 import kr.desponline.desp_backend.entity.mongodb.RewardMailBoxEntity;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

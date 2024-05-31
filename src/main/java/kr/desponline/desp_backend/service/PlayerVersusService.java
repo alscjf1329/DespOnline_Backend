@@ -3,7 +3,7 @@ package kr.desponline.desp_backend.service;
 import java.util.Collections;
 import java.util.List;
 import kr.desponline.desp_backend.entity.mongodb.PlayerVersusEntity;
-import kr.desponline.desp_backend.mongodb_repository.PlayerVersusRepository;
+import kr.desponline.desp_backend.repository.mongodb.PlayerVersusRepository;
 import org.springframework.stereotype.Service;
 
 @Service

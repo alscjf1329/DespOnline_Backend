@@ -3,8 +3,8 @@ package kr.desponline.desp_backend.service;
 import kr.desponline.desp_backend.dto.PlayerRecordDTO;
 import kr.desponline.desp_backend.entity.mongodb.PlayerEntity;
 import kr.desponline.desp_backend.entity.mongodb.PlayerVersusEntity;
-import kr.desponline.desp_backend.mongodb_repository.PlayerVersusRepository;
-import kr.desponline.desp_backend.mongodb_repository.RPGSharpRepository;
+import kr.desponline.desp_backend.repository.mongodb.PlayerVersusRepository;
+import kr.desponline.desp_backend.repository.mongodb.RPGSharpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

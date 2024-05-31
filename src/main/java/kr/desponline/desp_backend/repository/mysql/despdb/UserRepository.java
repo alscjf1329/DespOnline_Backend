@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.mysql_repository.despdb;
+package kr.desponline.desp_backend.repository.mysql.despdb;
 
 import kr.desponline.desp_backend.entity.mysql.despdb.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

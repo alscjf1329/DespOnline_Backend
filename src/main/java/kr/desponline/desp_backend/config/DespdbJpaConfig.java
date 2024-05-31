@@ -16,7 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "kr.desponline.desp_backend.mysql_repository.despdb",
+@EnableJpaRepositories(basePackages = "kr.desponline.desp_backend.repository.mysql.despdb",
     entityManagerFactoryRef = "despdbEntityManagerFactory",
     transactionManagerRef = "despdbTransactionManager")
 public class DespdbJpaConfig {

@@ -14,7 +14,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "kr.desponline.desp_backend.mysql_repository.webgamedb",
+@EnableJpaRepositories(basePackages = "kr.desponline.desp_backend.repository.mysql.webgamedb",
     entityManagerFactoryRef = "webgamedbEntityManagerFactory",
     transactionManagerRef = "webgamedbTransactionManager")
 public class WebgamedbJpaConfig {
@@ -32,7 +32,8 @@ public class WebgamedbJpaConfig {
         @Qualifier("webgamedbDataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("kr.desponline.desp_backend.entity.mysql.webgamedb"); // webgamedb 엔티티 패키지 위치
+        em.setPackagesToScan(
+            "kr.desponline.desp_backend.entity.mysql.webgamedb"); // webgamedb 엔티티 패키지 위치
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setShowSql(true);
@@ -40,7 +41,7 @@ public class WebgamedbJpaConfig {
 
         HashMap<String, Object> prop = new HashMap<>();
         prop.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        prop.put("hibernate.hbm2ddl.auto", "update");
+        prop.put("hibernate.hbm2ddl.auto", "none");
         prop.put("hibernate.format_sql", true);
         em.setJpaPropertyMap(prop);
         return em;

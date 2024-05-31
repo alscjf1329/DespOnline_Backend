@@ -1,7 +1,7 @@
 package kr.desponline.desp_backend.service;
 
 import kr.desponline.desp_backend.entity.mongodb.RPGPlayerEntity;
-import kr.desponline.desp_backend.mongodb_repository.RPGPlayerRepository;
+import kr.desponline.desp_backend.repository.mongodb.RPGPlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,8 +4,8 @@ import kr.desponline.desp_backend.dto.RewardMailRequestDTO;
 import kr.desponline.desp_backend.entity.mongodb.RewardEntity;
 import kr.desponline.desp_backend.entity.mongodb.RewardMailBoxEntity;
 import kr.desponline.desp_backend.entity.mongodb.RewardMailBoxEntity.Mail;
-import kr.desponline.desp_backend.mongodb_repository.RewardMailRepository;
-import kr.desponline.desp_backend.mongodb_repository.RewardRepository;
+import kr.desponline.desp_backend.repository.mongodb.RewardMailRepository;
+import kr.desponline.desp_backend.repository.mongodb.RewardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

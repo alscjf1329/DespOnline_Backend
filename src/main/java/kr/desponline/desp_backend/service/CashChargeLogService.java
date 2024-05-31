@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import kr.desponline.desp_backend.dto.CashChargeLogDTO;
 import kr.desponline.desp_backend.entity.mysql.despdb.CashChargeLogEntity;
-import kr.desponline.desp_backend.mysql_repository.despdb.CashChargeLogRepository;
+import kr.desponline.desp_backend.repository.mysql.despdb.CashChargeLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

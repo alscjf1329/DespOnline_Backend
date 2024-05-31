@@ -1,7 +1,7 @@
 package kr.desponline.desp_backend.service;
 
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
-import kr.desponline.desp_backend.mysql_repository.webgamedb.GameUserRepository;
+import kr.desponline.desp_backend.repository.mysql.webgamedb.GameUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

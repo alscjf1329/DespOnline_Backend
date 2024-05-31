@@ -5,7 +5,7 @@ import kr.desponline.desp_backend.dto.web_event.cardFlipping.RequestFlipCardDTO;
 import kr.desponline.desp_backend.entity.mongodb.web_event.WebEventEntity;
 import kr.desponline.desp_backend.entity.mongodb.web_event.details.CardFlippingDetail;
 import kr.desponline.desp_backend.entity.mysql.webgamedb.CardFlippingUserEntity;
-import kr.desponline.desp_backend.mysql_repository.webgamedb.CardFlippingRepository;
+import kr.desponline.desp_backend.repository.mysql.webgamedb.CardFlippingRepository;
 import org.springframework.stereotype.Service;
 
 @Service

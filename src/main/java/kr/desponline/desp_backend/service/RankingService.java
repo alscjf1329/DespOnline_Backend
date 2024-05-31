@@ -2,7 +2,7 @@ package kr.desponline.desp_backend.service;
 
 import java.util.List;
 import kr.desponline.desp_backend.entity.mongodb.PlayerEntity;
-import kr.desponline.desp_backend.mongodb_repository.RPGSharpRepository;
+import kr.desponline.desp_backend.repository.mongodb.RPGSharpRepository;
 import org.springframework.stereotype.Service;
 
 @Service

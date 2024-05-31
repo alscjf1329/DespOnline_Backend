@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.mysql_repository.webgamedb;
+package kr.desponline.desp_backend.repository.mysql.webgamedb;
 
 import kr.desponline.desp_backend.entity.mysql.webgamedb.GameUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
