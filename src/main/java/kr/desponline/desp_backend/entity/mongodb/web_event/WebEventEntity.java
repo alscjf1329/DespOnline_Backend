@@ -21,28 +21,28 @@ public class WebEventEntity {
 
     @Id
     @Field(value = "_id", targetType = FieldType.OBJECT_ID)
-    protected String id;
+    private String id;
 
     @Field(value = "title")
-    protected String title;
+    private String title;
 
     @Field(value = "description")
-    protected String description;
+    private String description;
 
     @Field(value = "bannerUri")
-    protected String bannerUri;
+    private String bannerUri;
 
     @Field(value = "startDate")
-    protected LocalDateTime startDate;
+    private LocalDateTime startDate;
 
     @Field(value = "endDate")
-    protected LocalDateTime endDate;
+    private LocalDateTime endDate;
 
     @Field(value = "type")
-    protected WebEventType type;
+    private WebEventType type;
 
     @Field(value = "info")
-    protected Map<String, Object> info;
+    private Map<String, Object> info;
 
     public int getSize() {
         return (int) info.get("size");
