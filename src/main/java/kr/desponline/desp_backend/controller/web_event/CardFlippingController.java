@@ -50,13 +50,9 @@ public class CardFlippingController {
 
     @GetMapping("/{eventId}")
     public ResponseEntity<EventUserInfoResponseDTO> showCardFlippingEvent(
-        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) String sessionKey,
+        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME) String sessionKey,
         @PathVariable("eventId") String eventId
     ) {
-        if (sessionKey == null) {
-            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
-        }
-
         GameUserEntity gameUser = signinSessionService.findSession(sessionKey);
         if (gameUser == null) {
             return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
@@ -79,13 +75,9 @@ public class CardFlippingController {
     @PostMapping("/{eventId}/flip")
     public ResponseEntity<FlipCardResultDTO> flipCard(
         @RequestBody RequestFlipCardDTO requestFlipCardDTO,
-        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) String sessionKey,
+        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME) String sessionKey,
         @PathVariable("eventId") String eventId
     ) {
-        if (sessionKey == null) {
-            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
-        }
-
         GameUserEntity gameUser = signinSessionService.findSession(sessionKey);
         if (gameUser == null) {
             return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
@@ -131,13 +123,9 @@ public class CardFlippingController {
 
     @PostMapping("/{eventId}/reset")
     public ResponseEntity<?> resetCards(
-        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME, required = false) String sessionKey,
+        @CookieValue(value = SigninSessionService.SESSION_KEY_COOKIE_NAME) String sessionKey,
         @PathVariable("eventId") String eventId
     ) {
-        if (sessionKey == null) {
-            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
-        }
-
         GameUserEntity gameUser = signinSessionService.findSession(sessionKey);
         if (gameUser == null) {
             return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).build();
