@@ -2,13 +2,14 @@ package kr.desponline.desp_backend.entity.mongodb.web_event.details;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import lombok.Getter;
 
 @Getter
 public class CardFlippingDetail extends WebEventDetail {
 
-    public CardFlippingDetail(HashMap<String, Object> details) {
+    public CardFlippingDetail(Map<String, Object> details) {
         super(details);
     }
 

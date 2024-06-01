@@ -1,5 +1,7 @@
 package kr.desponline.desp_backend.entity.mongodb.web_event;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import kr.desponline.desp_backend.dto.web_event.WebEventDTO;
@@ -63,6 +65,15 @@ public class WebEventEntity {
     }
 
     public WebEventDetail getDetails() {
-        return new WebEventDetail(this.details);
+        try {
+            Class<? extends WebEventDetail> detailClazz = this.type.getDetailClazz();
+            Constructor<? extends WebEventDetail> constructor = detailClazz.getConstructor(Map.class);
+            return constructor.newInstance(this.details);
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
+            // 예외 처리
+            e.printStackTrace();
+            return null;
+        }
     }
 }
