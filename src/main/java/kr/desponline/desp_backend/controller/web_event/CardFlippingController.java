@@ -104,10 +104,10 @@ public class CardFlippingController {
         }
 
         FlipCardResultDTO flipResult = cardFlippingDTO.flip(requestFlipCardDTO.getFlipIndexes());
-        CardFlippingDetail eventDetails = (CardFlippingDetail) event.getDetails();
-        String randomRewardName = eventDetails.getRandomReward(flipResult.getRewardLevel() - 1);
 
         if (flipResult.getSuccess()) {
+            CardFlippingDetail eventDetails = (CardFlippingDetail) event.getDetails();
+            String randomRewardName = eventDetails.getRandomReward(flipResult.getRewardLevel() - 1);
             RewardMailRequestDTO gameRewardMailRequestDTO = new RewardMailRequestDTO(
                 List.of(cardFlippingDTO.getUser().getUuid()),
                 event.getTitle(),
