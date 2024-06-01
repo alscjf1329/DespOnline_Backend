@@ -44,6 +44,7 @@ public class SigninSessionService {
             .httpOnly(true)
             .secure(true)
             .maxAge(DEFAULT_TTL)
+            .path("/")
             .build();
         return cookie;
     }
