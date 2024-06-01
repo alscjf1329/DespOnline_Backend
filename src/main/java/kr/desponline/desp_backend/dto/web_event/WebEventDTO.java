@@ -17,5 +17,5 @@ public class WebEventDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private WebEventType type;
-    private Map<String, Object> info;
+    private Map<String, Object> details;
 }
