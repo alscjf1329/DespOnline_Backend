@@ -1,4 +1,4 @@
-package kr.desponline.desp_backend.config;
+package kr.desponline.desp_backend.config.cors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-public class MyConfiguration implements WebMvcConfigurer {
+public class CorsConfig implements WebMvcConfigurer {
 
     @Value("${front.domains}")
     private String[] frontDomains;
