@@ -90,6 +90,7 @@ public class CardFlippingUserDTO {
         return new FlipCardResultDTO(
             allSame(showResult),
             showResult,
+            remainingFlipCount,
             flipOpportunity,
             rewardLevel,
             progress);

@@ -10,6 +10,7 @@ public class FlipCardResultDTO {
 
     private Boolean success;
     private List<Integer> flippedCardAnswer;
+    private Integer remainingFlipCountInGame;
     private Integer remainingFlipOpportunity;
     private Integer rewardLevel;
     private List<Integer> cardStatus;
