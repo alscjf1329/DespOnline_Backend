@@ -46,7 +46,7 @@ public class RewardMailBoxService {
                 reward.getContent().getMoney()
             );
             rewardMailBox.addMail(mail);
-            rewardMailRepository.save(rewardMailBox);
+            rewardMailRepository.save(rewardMailBox).subscribe();
         }
     }
 }
