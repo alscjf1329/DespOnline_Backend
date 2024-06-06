@@ -111,7 +111,7 @@ public class CardFlippingController {
             RewardMailRequestDTO gameRewardMailRequestDTO = new RewardMailRequestDTO(
                 List.of(cardFlippingDTO.getUser().getUuid()),
                 event.getTitle(),
-                (flipResult.getRewardLevel() - 1) + "단계 보상",
+                flipResult.getRewardLevel() + "단계 보상",
                 randomRewardName
             );
             gameMailService.sendRewardMail(gameRewardMailRequestDTO);
